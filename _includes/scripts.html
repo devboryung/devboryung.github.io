@@ -1,0 +1,87 @@
+{% if site.footer_scripts %}
+  {% for script in site.footer_scripts %}
+    {% if script contains "://" %}
+      {% capture script_path %}{{ script }}{% endcapture %}
+    {% else %}
+      {% capture script_path %}{{ script | relative_url }}{% endcapture %}
+    {% endif %}
+    <script src="{{ script_path }}"></script>
+  {% endfor %}
+{% else %}
+  <script src="{{ '/assets/js/main.min.js' | relative_url }}"></script>
+  <script src="https://use.fontawesome.com/releases/v5.1.0/js/all.js"></script>
+{% endif %}
+
+{% if site.search == true or page.layout == "search" %}
+  {%- assign search_provider = site.search_provider | default: "lunr" -%}
+  {%- case search_provider -%}
+    {%- when "lunr" -%}
+      {% include search/lunr-search-scripts.html %}
+    {%- when "google" -%}
+      {% include search/google-search-scripts.html %}
+    {%- when "algolia" -%}
+      {% include search/algolia-search-scripts.html %}
+  {%- endcase -%}
+{% endif %}
+
+{% include analytics.html %}
+{% include /comments-providers/scripts.html %}
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+<!-- 카카오 플러스친구 추가 버튼 생성 
+<script type='text/javascript'>
+  //<![CDATA[
+    //my_id = '_XDeVj';
+    //info_id = '_RdDHM';
+
+    // 플러스친구 친구추가 버튼을 생성합니다.
+    
+    function addPlusFriend(my_id) {
+      Kakao.PlusFriend.addFriend({
+        plusFriendId: my_id // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+      });
+    }
+    function plusFriendChat(my_id) {
+      Kakao.PlusFriend.chat({
+        plusFriendId: my_id // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+      });
+    }
+  //]]>
+  
+</script>
+-->
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+
+</script>
+
+<!-- facebook API -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v3.1&appId=196726300751751';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>

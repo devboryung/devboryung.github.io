@@ -1,0 +1,481 @@
+/* ==========================================================================
+   Syntax highlighting
+   ========================================================================== */
+
+   div.highlighter-rouge,figure.highlight {
+    position: relative;
+    margin-bottom: 1em;
+    background: #33363a;
+    color: #eff;
+    font-family: Monaco,Consolas,"Lucida Console",monospace;
+    font-size: .75em;
+    line-height: 1.8;
+    border-radius: 4px
+}
+
+div.highlighter-rouge>pre,div.highlighter-rouge pre.highlight,figure.highlight>pre,figure.highlight pre.highlight {
+    margin: 0;
+    white-space: pre-wrap;
+    padding: 1em
+}
+
+.highlight table {
+    margin-bottom: 0;
+    font-size: 1em;
+    border: 0
+}
+
+.highlight table td {
+    padding: 0;
+    width: calc(100% - 1em);
+    border: 0
+}
+
+.highlight table td.gutter,.highlight table td.rouge-gutter {
+    padding-right: 1em;
+    width: 1em;
+    color: #b2ccd6;
+    border-right: 1px solid #b2ccd6;
+    text-align: right
+}
+
+.highlight table td.code,.highlight table td.rouge-code {
+    padding-left: 1em
+}
+
+.highlight table pre {
+    margin: 0
+}
+
+.highlight pre {
+    width: 100%
+}
+
+.highlight .hll {
+    background-color: #eff
+}
+
+.highlight .c {
+    color: #b2ccd6
+}
+
+.highlight .err {
+    color: #f07178
+}
+
+.highlight .k {
+    color: #c792ea
+}
+
+.highlight .l {
+    color: #f78c6c
+}
+
+.highlight .n {
+    color: #eff
+}
+
+.highlight .o {
+    color: #89ddff
+}
+
+.highlight .p {
+    color: #eff
+}
+
+.highlight .cm {
+    color: #b2ccd6
+}
+
+.highlight .cp {
+    color: #b2ccd6
+}
+
+.highlight .c1 {
+    color: #b2ccd6
+}
+
+.highlight .cs {
+    color: #b2ccd6
+}
+
+.highlight .gd {
+    color: #f07178
+}
+
+.highlight .ge {
+    font-style: italic
+}
+
+.highlight .gh {
+    color: #eff;
+    font-weight: bold
+}
+
+.highlight .gi {
+    color: #c3e88d
+}
+
+.highlight .gp {
+    color: #b2ccd6;
+    font-weight: bold
+}
+
+.highlight .gs {
+    font-weight: bold
+}
+
+.highlight .gu {
+    color: #89ddff;
+    font-weight: bold
+}
+
+.highlight .kc {
+    color: #c792ea
+}
+
+.highlight .kd {
+    color: #c792ea
+}
+
+.highlight .kn {
+    color: #89ddff
+}
+
+.highlight .kp {
+    color: #c792ea
+}
+
+.highlight .kr {
+    color: #c792ea
+}
+
+.highlight .kt {
+    color: #ffcb6b
+}
+
+.highlight .ld {
+    color: #c3e88d
+}
+
+.highlight .m {
+    color: #f78c6c
+}
+
+.highlight .s {
+    color: #c3e88d
+}
+
+.highlight .na {
+    color: #82aaff
+}
+
+.highlight .nb {
+    color: #eff
+}
+
+.highlight .nc {
+    color: #ffcb6b
+}
+
+.highlight .no {
+    color: #f07178
+}
+
+.highlight .nd {
+    color: #89ddff
+}
+
+.highlight .ni {
+    color: #eff
+}
+
+.highlight .ne {
+    color: #f07178
+}
+
+.highlight .nf {
+    color: #82aaff
+}
+
+.highlight .nl {
+    color: #eff
+}
+
+.highlight .nn {
+    color: #ffcb6b
+}
+
+.highlight .nx {
+    color: #82aaff
+}
+
+.highlight .py {
+    color: #eff
+}
+
+.highlight .nt {
+    color: #89ddff
+}
+
+.highlight .nv {
+    color: #f07178
+}
+
+.highlight .ow {
+    color: #89ddff
+}
+
+.highlight .w {
+    color: #eff
+}
+
+.highlight .mf {
+    color: #f78c6c
+}
+
+.highlight .mh {
+    color: #f78c6c
+}
+
+.highlight .mi {
+    color: #f78c6c
+}
+
+.highlight .mo {
+    color: #f78c6c
+}
+
+.highlight .sb {
+    color: #c3e88d
+}
+
+.highlight .sc {
+    color: #eff
+}
+
+.highlight .sd {
+    color: #b2ccd6
+}
+
+.highlight .s2 {
+    color: #c3e88d
+}
+
+.highlight .se {
+    color: #f78c6c
+}
+
+.highlight .sh {
+    color: #c3e88d
+}
+
+.highlight .si {
+    color: #f78c6c
+}
+
+.highlight .sx {
+    color: #c3e88d
+}
+
+.highlight .sr {
+    color: #c3e88d
+}
+
+.highlight .s1 {
+    color: #c3e88d
+}
+
+.highlight .ss {
+    color: #c3e88d
+}
+
+.highlight .bp {
+    color: #eff
+}
+
+.highlight .vc {
+    color: #f07178
+}
+
+.highlight .vg {
+    color: #f07178
+}
+
+.highlight .vi {
+    color: #f07178
+}
+
+.highlight .il {
+    color: #f78c6c
+}
+
+// gist highlight 'idle-fingers' 
+// copy by (https://github.com/lonekorean/gist-syntax-themes)
+
+body .gist .gist-meta{
+      padding: 10px;
+    overflow: hidden;
+    font: 12px -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    color: #fb7171;
+    background-color: #404040;
+    border-radius: 0 0 2px 2px;
+}
+
+body .gist .gist-meta a{
+    font-weight: 600;
+    color: #d6d6d6;
+    text-decoration: none;
+    border: 0;
+}
+
+
+
+body .gist .highlight {
+    background: #323232;
+}
+
+body .gist .blob-num{
+  color: #fff;
+  border-bottom: 1px solid #323232;
+}
+body .gist .blob-code-inner,
+body .gist .pl-s2,
+body .gist .pl-stj,
+body .gist .pl-vo,
+body .gist .pl-id,
+body .gist .pl-ii {
+     color: #fff;
+     font-size: 1.35em;
+}
+body .gist .pl-enti,
+body .gist .pl-mb,
+body .gist .pl-pdb {
+     font-weight: 700;
+}
+body .gist .pl-c,
+body .gist .pl-c span,
+body .gist .pl-pdc {
+     color: #bc9458;
+     font-style: italic;
+}
+body .gist .pl-c1,
+body .gist .pl-pdc1,
+body .gist .pl-scp {
+     color: #6c99bb;
+}
+body .gist .pl-ent,
+body .gist .pl-eoa,
+body .gist .pl-eoai,
+body .gist .pl-eoai .pl-pde,
+body .gist .pl-ko,
+body .gist .pl-kolp,
+body .gist .pl-mc,
+body .gist .pl-mr,
+body .gist .pl-ms,
+body .gist .pl-s3,
+body .gist .pl-sok {
+     color: #ffe5bb;
+}
+body .gist .pl-mdh,
+body .gist .pl-mdi,
+body .gist .pl-mdr {
+     font-weight: 400;
+}
+body .gist .pl-mi,
+body .gist .pl-pdi {
+     color: #ffe5bb;
+     font-style: italic;
+}
+body .gist .pl-sra,
+body .gist .pl-src,
+body .gist .pl-sre {
+     color: #cc3;
+}
+body .gist .pl-mdht,
+body .gist .pl-mi1 {
+     color: #a5c261;
+     background: rgba(0, 64, 0, .5);
+}
+body .gist .pl-md,
+body .gist .pl-mdhf {
+     color: #b83426;
+     background: rgba(64, 0, 0, .5);
+}
+body .gist .pl-ib,
+body .gist .pl-id,
+body .gist .pl-ii,
+body .gist .pl-iu {
+     background: #b83426;
+}
+body .gist .pl-ms1 {
+     background: #ffc66d;
+}
+body .gist .highlight-text-html-basic .pl-ent,
+body .gist .pl-cce,
+body .gist .pl-cn,
+body .gist .pl-coc,
+body .gist .pl-enc,
+body .gist .pl-ens,
+body .gist .pl-k,
+body .gist .pl-kos,
+body .gist .pl-kou,
+body .gist .pl-mh .pl-pdh,
+body .gist .pl-mp,
+body .gist .pl-mp .pl-s3,
+body .gist .pl-mp1 .pl-sf,
+body .gist .pl-mq,
+body .gist .pl-mri,
+body .gist .pl-pde,
+body .gist .pl-pse,
+body .gist .pl-pse .pl-s2,
+body .gist .pl-s,
+body .gist .pl-st,
+body .gist .pl-stp,
+body .gist .pl-sv,
+body .gist .pl-v,
+body .gist .pl-va,
+body .gist .pl-vi,
+body .gist .pl-vpf,
+body .gist .pl-vpu,
+body .gist .pl-mdr {
+     color: #cc7833;
+}
+body .gist .pl-cos,
+body .gist .pl-ml,
+body .gist .pl-pds,
+body .gist .pl-s1,
+body .gist .pl-sol,
+body .gist .pl-mb,
+body .gist .pl-pdb {
+     color: #a5c261;
+}
+body .gist .pl-e,
+body .gist .pl-en,
+body .gist .pl-entl,
+body .gist .pl-mo,
+body .gist .pl-sc,
+body .gist .pl-sf,
+body .gist .pl-smi,
+body .gist .pl-smp,
+body .gist .pl-mdh,
+body .gist .pl-mdi {
+     color: #ffc66d;
+}
+body .gist .pl-ef,
+body .gist .pl-enf,
+body .gist .pl-enm,
+body .gist .pl-entc,
+body .gist .pl-entm,
+body .gist .pl-eoac,
+body .gist .pl-eoac .pl-pde,
+body .gist .pl-eoi,
+body .gist .pl-mai .pl-sf,
+body .gist .pl-mm,
+body .gist .pl-pdv,
+body .gist .pl-smc,
+body .gist .pl-som,
+body .gist .pl-sr,
+body .gist .pl-enti {
+     color: #b83426;
+}
