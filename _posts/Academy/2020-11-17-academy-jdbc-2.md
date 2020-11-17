@@ -24,7 +24,6 @@ toc: true
 {: .notice--success}
 <br/>
 
-
 ```java
 //JDBCRun.java
 package com.kh.jdbc.run;
