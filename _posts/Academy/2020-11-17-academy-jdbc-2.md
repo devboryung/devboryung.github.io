@@ -12,17 +12,7 @@ toc: true
 ---
 
 ## JDBC
-### Template
-1. 반복되는 Connection 객체의 생성을 간소화하기 위해 사용한다.
-2. 트랜잭션 처리, close() 처리의 간소화하기 위해 사용한다.
-{: .notice--success}
-<br/>
 
-### Properties 클래스
-키와 값이 모두 String인 컬렉션
-외부 파일 입출력이 간단하게 구현되어 있음.
-{: .notice--success}
-<br/>
 
 ```java
 //JDBCRun.java
@@ -598,7 +588,7 @@ public class MemberDAO {
 	}
 
 
-	
+	// 로그인용 DAO 
 	public Member login(Connection conn, Member member) throws Exception {
 		
 		Member loginMember = null; // 로그인된 회원 정보를 저장할 임시 변수
@@ -635,5 +625,27 @@ public class MemberDAO {
 }
 
 ```
+```java
+// 사용한 xml
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<!-- member 관련 SQL구문을 작성하는 xml파일 -->
+<entry key="signUp">
+INSERT INTO TB_MEMBER VALUES(SEQ_MNO.NEXTVAL, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)
+</entry>
+
+<entry key ="login">
+SELECT MEM_NO, MEM_ID, MEM_NM, PHONE, GENDER, HIRE_DT 
+FROM TB_MEMBER
+WHERE MEM_ID = ?
+AND MEM_PW = ?
+AND SCSN_FL = 'N'
+</entry>
+</properties>
+```
+
+
 
 <br/><br/>
