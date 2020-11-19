@@ -15,7 +15,7 @@ toc: true
 
 
 ```java
-//JDBCRun.java
+//Member.java
 package com.kh.jdbc.member.model.vo;
 
 import java.sql.Date;
@@ -275,7 +275,7 @@ public class TestProperties {
 
 ```java
 //JDBCView.java
-package com.kh.jdbc.View;
+package com.kh.jdbc.view;
 
 import java.util.InputMismatchException;
 import java.util.List;
