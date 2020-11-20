@@ -1,6 +1,6 @@
 ---
-title: "2020년 11월 19일"
-excerpt: "JDBC-4"
+title: "2020년 11월 20일"
+excerpt: "JDBC-5"
 search: true
 categories: 
   - Academy
@@ -41,14 +41,6 @@ public class Board {
 		this.categoryCd = categoryCd;
 	}
 
-	// 게시글 수정용 생성자
-	public Board(int boardNo, String title, String content, int categoryCd) {
-		super();
-		this.boardNo = boardNo;
-		this.title = title;
-		this.content = content;
-		this.categoryCd = categoryCd;
-	}
 
 
 	public Board(int boardNo, String title, String content, Date createDt, int readCount, char deleteFl, int memNo,
@@ -303,214 +295,112 @@ public class BoardView {
 
 
 
-		/**
-	 * 게시글 수정 View
-	 */
-	private void updateBoard() {
-		System.out.println("[게시글 수정]");
-		
-		// 게시글 번호를 입력받아 해당 글이 로그인한 회원의 글인지 판별
-		// ->checkMyBoard()라는 메소드를 만들어서 판별
-		
-		int boardNo = checkMyBoard();
-		
-		if(boardNo > 0) {
-			//insertBoard 재활용
-			System.out.println("[게시글 작성]");
-			// 카테고리 
-			System.out.print("카테고리(1.JAVA / 2.DB / 3.JDBC) : ");
-			int categoryCd = sc.nextInt();
-			sc.nextLine();
-			
-			// 제목
-			System.out.print("제목 : ");
-			String title = sc.nextLine();
-			
-			// 내용
-			StringBuffer sb = new StringBuffer(); // 입력되는 모든 내용을 저장할 객체 생성
-			String str = null; //임시로 입력된 값을 한 줄씩 저장할 곳
-			
-			System.out.println("---내용 입력(exit 입력 시 내용 입력 종료)---");
-			while(true) {
-				str = sc.nextLine();
-				if(str.equals("exit")) {
-					break;
-				}
-				sb.append(str + "\n");
-				// 입력된 문자열을 StringBuffer에 누적
-			}
-			
-			try {
-				Board board = new Board(boardNo, title, sb.toString(), categoryCd);
-				
-				int result = bService.updateBoard(board);
-				
-				if (result >0) {
-					System.out.println("게시글 수정 성공!");
-				}else {
-					System.out.println("게시글 수정 실패..");
-				}
-			}catch(Exception e){
-				System.out.println("게시글 수정 과정에서 오류 발생.");
-				e.printStackTrace();
-			}
-			
-		}
-
-	}	
-	
-	
 	/**
-	 * 게시글 삭제 용 view
+	 * 게시글 목록 조회 View
 	 */
-	private void updateDeleteFl() {
-		System.out.println("[게시글 삭제]");
-		int boardNo = checkMyBoard();
-		
-		int result = 0;
-				
-		if(boardNo > 0) {
-			
-			// Y/N으로 조건 판별
-			/*System.out.println("정말 삭제하시겠습니까?(Y/N) : ");
-			char input = sc.nextLine().toUpperCase().charAt(0);
-			try {
-				
-				if(input == 'Y') {
-					result = bService.updateDeleteFl(boardNo);
-					
-					if(result >0) {
-						System.out.println("삭제 성공했습니다.");
-					}else {
-						System.out.println("자신의 게시글이 아니거나 없는 게시글 입니다.");
-					}
-				}else {
-					System.out.println("삭제를 취소합니다.");
-				}
-			*/
-			try {
-				String random = bService.randomString(); // 서비스에서 생성한 랜덤 문자열을 반환 받음
-			System.out.println("다음 출력된 글자를 작성하시면 삭제됩니다. [" + random +"]입력 : " );
-			
-			String input = sc.nextLine();
-				
-				if(random.equals(input)) {
-					result = bService.updateDeleteFl(boardNo);
-					
-					if(result >0) {
-						System.out.println(boardNo +"번 삭제 성공했습니다.");
-					}else {
-						System.out.println("삭제 실패");
-					}
-					
-				}else {
-					System.out.println("잘못 입력하셨습니다.");
-				}
-	
-					
-			}catch(Exception e) {
-				System.out.println("게시글 삭제 과정에서 오류 발생.");
-				e.printStackTrace();
-			}
-	
-				
-		}
-			
-	}	
-		
-		
-
-	
-	/** 게시글이 로그인한 회원의 글인지 판별하는 View
-	 * @return boardNo
-	 */
-	private int checkMyBoard() {
-		// 게시글 번호 입력
-		System.out.print("게시글 번호 입력 : ");
-		int boardNo = sc.nextInt();
-	      sc.nextLine();
-		
-		int result = 0; // 글이 존재하는지에 대한 판별 결과를 저장할 변수
-		
+	private void selectAllBoard() {
+		System.out.println("[게시글 목록]");
+		// 카테고리 명 | 글번호 | 제목 | 작성일 | 작성자 | 조회수
 		
 		try {
-			Board board = new Board();
-			board.setBoardNo(boardNo);
-			board.setMemNo(JDBCView.loginMember.getMemNo());
+			//게시글 목록 조회 Service 호출 후 결과를 반환 받아 출력
+			List<VBoard> list = bService.selectAllBoard();
 			
-			result = bService.checkMyBoard(board);
-			
-			if(result>0) { // 입력한 번호의 글이 로그인한 회원의 글인 경우
-				System.out.println("(확인 완료)");
-				result = boardNo;
-				
-			} else {
-				System.out.println("자신의 글이 아니거나, 존재하지 않는 글번호 입니다.");
+			if(list.isEmpty()) {
+				System.out.println("조회 결과가 없습니다.");
+			}else {
+				System.out.printf(" %s | %s | %s | %s | %s | %s\n",
+						"카테고리", "글번호", "제목", "작성일", "작성자", "조회수");
+				for(VBoard board : list) {
+					System.out.printf(" %s | %d | %s | %s | %s | %d\n",
+							board.getCategoryNm(), board.getBoardNo(), 
+							board.getTitle(), board.getCreateDt(), 
+							board.getMemNm(),board.getReadCount());
+				}
 			}
-			
 		}catch (Exception e) {
-			System.out.println("게시글 확인 과정에서 오류 발생");
+			System.out.println("게시글 목록 조회 중 오류 발생");
 			e.printStackTrace();
 		}
-		return result;
+		
 	}
-	
 	
 
 
 	/**
-	 * 게시글 검색
+	 * 게시글 상세 조회 View
 	 */
-	private void searchBoard() {
-		System.out.println("[게시글 검색]");
-		System.out.println("1. 제목 검색");
-		System.out.println("2. 내용 검색");
-		System.out.println("3. 제목 + 내용 검색");
-		System.out.println("4. 작성자 검색");
-		System.out.println("0. 검색 취소");
-		
-		System.out.print("선택 : ");
-		int sel = sc.nextInt();
+	private void selectBoard() {
+		System.out.println("[게시글 상세 조회]");
+		System.out.print("조회할 글 번호 : ");
+		int boardNo = sc.nextInt();
 		sc.nextLine();
 		
-		if(sel == 0) {
-			System.out.println("검색 취소");
-		}else if(sel >= 1 && sel <=4) {
-			// 1,2,3,4번 메뉴 선택 시
-			System.out.print("검색어 입력 : ");
-			String keyword = sc.nextLine();
+		try {
+			VBoard vboard = bService.selectBoard(boardNo);
 			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("sel",sel);
-			map.put("keyword", keyword);
-			try {
-				List<VBoard> list = bService.searchBoard(map);
-				
-				System.out.println("=== 검색 결과 ===");
-				
-				if(list.isEmpty()) {
-					System.out.println("조회 결과가 없습니다.");
-				}else {
-					System.out.printf(" %s | %s | %s | %s | %s | %s\n",
-							"카테고리", "글번호", "제목", "작성일", "작성자", "조회수");
-					for(VBoard board : list) {
-						System.out.printf(" %s | %d | %s | %s | %s | %d\n",
-								board.getCategoryNm(), board.getBoardNo(), 
-								board.getTitle(), board.getCreateDt(), 
-								board.getMemNm(),board.getReadCount());
-					}
-				}
-			}catch(Exception e) {
-				System.out.println("검색 과정에서 오류 발생");
-				e.printStackTrace();
+			if(vboard==null) {
+				System.out.println("해당 번호의 글이 존재하지 않습니다.");
+			}else {
+				System.out.println("----------------------------------------------------------------------------");
+				System.out.printf("%d | [%s] %s\n",vboard.getBoardNo(),  vboard.getCategoryNm(), vboard.getTitle());
+				System.out.printf("작성자 : %s | 작성일  : %s | 조회수 %d\n",vboard.getMemNm(), vboard.getCreateDt(), vboard.getReadCount());
+				System.out.println("----------------------------------------------------------------------------");
+				System.out.println(vboard.getContent());
+				System.out.println("----------------------------------------------------------------------------");
 			}
 			
-		}else {
-			System.out.println("잘못 입력하셨습니다.");
+		}catch(Exception e) {
+			System.out.println("게시글 상세 조회 중 오류 발생");
+			e.printStackTrace();
+		}
+	}
+	
+
+	/**
+	 * 게시글 작성 View
+	 */
+	private void insertBoard() {
+		System.out.println("[게시글 작성]");
+		// 카테고리 
+		System.out.print("카테고리(1.JAVA / 2.DB / 3.JDBC) : ");
+		int categoryCd = sc.nextInt();
+		sc.nextLine();
+		
+		// 제목
+		System.out.print("제목 : ");
+		String title = sc.nextLine();
+		
+		// 내용
+		StringBuffer sb = new StringBuffer(); // 입력되는 모든 내용을 저장할 객체 생성
+		String str = null; //임시로 입력된 값을 한 줄씩 저장할 곳
+		
+		System.out.println("---내용 입력(exit 입력 시 내용 입력 종료)---");
+		while(true) {
+			str = sc.nextLine();
+			if(str.equals("exit")) {
+				break;
+			}
+			sb.append(str + "\n");
+			// 입력된 문자열을 StringBuffer에 누적
 		}
 		
+		try {
+			// 카테고리 코드, 제목, 내용, 회원번호를 저장할 수 있는 Board 객체 생성
+			Board board = new Board(title, sb.toString(), JDBCView.loginMember.getMemNo(), categoryCd);
+									//sb.toString() = content, sb에 있는 모든 정보
+			int result = bService.insertBoard(board);
+			
+			if(result>0){
+				System.out.println("게시글 작성 성공");
+			}else {
+				System.out.println("게시글 작성 실패..");
+			}
+		}catch(Exception e) {
+			System.out.println("게시글 작성 중 오류 발생");
+			e.printStackTrace();
+		}
 	}
-
 }
 
 ```
@@ -532,53 +422,65 @@ import com.kh.jdbc.board.model.vo.VBoard;
 public class BoardService {
 	private BoardDAO bDAO = new BoardDAO();
 
-		/** 게시글이 로그인한 회원의 글인지 판별하는 Service
-	 * @param board
-	 * @return result
+	/** 게시글 목록 조회 Service
+	 * @return list
 	 * @throws Exception
 	 */
-	public int checkMyBoard(Board board) throws Exception {
+	public List<VBoard> selectAllBoard() throws Exception{
+		// 커넥션 얻어오기
 		Connection conn = getConnection();
 		
-		int result = bDAO.checkMyBoard(conn, board);
+		// DAO메소드 호출 후 결과를 반환 받음
+		List<VBoard> list = bDAO.selectAllBoard(conn);
+		
 		close(conn);
-	
-		return result;
+		
+		return list;
 	}
 
-	/** 게시글 수정 Service
-	 * @param board
-	 * @return result
+	/** 게시글 상세 조회 Service
+	 * @param boardNo
+	 * @return vboard
 	 * @throws Exception
 	 */
-	public int updateBoard(Board board) throws Exception {
+	public VBoard selectBoard(int boardNo) throws Exception {
 		Connection conn = getConnection();
 		
-		int result = bDAO.updateBoard(conn,board);
+		VBoard vboard = bDAO.selectBoard(conn, boardNo);
 		
-		if(result >0) {
-			commit(conn);
-		}else {
-			rollback(conn);
+		// DB에서 게시글 정보를 성공적으로 조회를 해왔을 때
+		// --> 해당 게시글의 조회수를 증가
+		
+		if(vboard!=null) {
+			// DB에서 해당 글의 조회수를 증가시킬 수 있는 DAO 메소드 호출
+			// -->UPDATE 수행
+			int result = bDAO.updateReadCount(conn, boardNo);
+			
+			if(result>0) {
+				commit(conn);
+				
+				vboard.setReadCount( vboard.getReadCount()+1); 
+				// vboard 그대로 반환하면 이전값임,,
+			}else {
+				rollback(conn);
+			}
+		
+		close(conn);
 		}
 		
-		close(conn);
-		
-		return result;
+		return vboard;
 	}
-	
-	
 
-	/** 게시글 삭제
-	 * @param boardNo
+	/** 게시글 작성 Service
+	 * @param board
 	 * @return result
 	 * @throws Exception
 	 */
-	public int updateDeleteFl(int boardNo) throws Exception {
-		Connection conn = getConnection();
-		int result =0;
+	public int insertBoard(Board board) throws Exception {
 		
-		result = bDAO.updateDeleteFl(conn, boardNo);
+		Connection conn = getConnection();
+		
+		int result = bDAO.insertBoard(conn, board);
 		
 		if(result>0) {
 			commit(conn);
@@ -586,58 +488,8 @@ public class BoardService {
 			rollback(conn);
 		}
 		
-		close(conn);
-				
 		return result;
 	}
-	
-	
-	/** 랜덤 문자열 생성 Service
-	 * @return
-	 */
-	public String randomString() {
-		String str = "";
-
-		// 랜덤 문자열 지정은 로직처리라서 service에서 진행함.
-		for(int i=0; i<6; i++) {
-			char random = (char)((Math.random() * 26) + 97);
-			str += random;
-		}
-		return str;
-		
-	}
-
-	
-	
-	/** 게시글 검색 Service 
-	 * @param sel
-	 * @param keyword
-	 * @return list
-	 * @throws Exception
-	 */
-	public List<VBoard> searchBoard(Map<String, Object> map) throws Exception {
-		Connection conn = getConnection();
-		
-		// 쿼리 조합 진행
-		String query = "SELECT * FROM V_BOARD WHERE ";
-		String like = "LIKE '%" + map.get("keyword") + "%' ";  // == LIKE '%김%'
-		      
-		switch((int)map.get("sel")) { //sel object 타입임 알맞게  int로 형변환 (다운캐스팅)		
-			case 1: query += "TITLE " + like ; break;
-			case 2: query += "CONTENT " + like ; break;
-			case 3: query += "TITLE " + like + "OR CONTENT " + like ; break;
-			case 4: query += "MEM_NM " + like ; break;
-		}
-		
-		query += "ORDER BY BOARD_NO DESC";
-		
-		List<VBoard> list = bDAO.searchBoard(conn, query);
-		
-		close(conn);
-		
-		return list;
-	}
-
 	
 }
 
@@ -809,31 +661,29 @@ public class BoardDAO {
 <properties>
 <!-- board 관련 SQL구문을 작성하는 xml파일 -->
 
-<!-- -->
-<entry key="selectAllBoard">
-SELECT * FROM V_BOARD
-ORDER BY BOARD_NO DESC 
-
+<!--특정 게시글이 특정 회원의 글이 맞는지 조회 -->
+<entry key="checkMyBoard">
+SELECT COUNT(*) FROM TB_BOARD
+WHERE MEM_NO = ?
+AND BOARD_NO =?
+AND DELETE_FL = 'N'
 </entry>
 
-<entry key="selectBoard">
-SELECT * FROM V_BOARD
+<!--게시글 업데이트 -->
+<entry key="updateBoard">
+UPDATE TB_BOARD
+SET TITLE = ?,
+CONTENT = ?,
+CATEGORY_CD = ?
 WHERE BOARD_NO = ?
 </entry>
 
-
-<entry key="updateReadCount">
-UPDATE TB_BOARD 
-SET READ_COUNT = READ_COUNT + 1
+<!--게시글 삭제여부 변경-->
+<entry key="updateDeleteFl">
+UPDATE TB_BOARD
+SET DELETE_FL = 'Y'
 WHERE BOARD_NO = ?
 </entry>
-
-<entry key="insertBoard">
-INSERT INTO TB_BOARD(BOARD_NO, TITLE, CONTENT, MEM_NO, CATEGORY_CD)
-VALUES(SEQ_BNO.NEXTVAL, ?, ?, ?, ?)
-</entry>
-
-</properties>
 ```
 
 <br/><br/>
