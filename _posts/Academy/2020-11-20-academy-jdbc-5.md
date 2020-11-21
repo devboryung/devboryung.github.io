@@ -530,125 +530,123 @@ public class BoardDAO {
 		}
 	}
 
-	
-	/**게시글 목록 조회 DAO
+		/** 게시글이 로그인한 회원의 글인지 판별하는 DAO
 	 * @param conn
+	 * @param board
+	 * @return result
+	 * @throws Exception
+	 */
+	public int checkMyBoard(Connection conn, Board board) throws Exception {
+		int result = 0; // 반환 결과를 저장할 변수 선언
+		try {
+			String query = prop.getProperty("checkMyBoard");
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, board.getMemNo());
+			pstmt.setInt(2, board.getBoardNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	/** 게시글 수정 DAO
+	 * @param conn
+	 * @param board
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateBoard(Connection conn, Board board) throws Exception {
+		int result = 0;
+		try {
+			String query = prop.getProperty("updateBoard");
+			
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setInt(3, board.getCategoryCd());
+			pstmt.setInt(4, board.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+			// executeUpdate -> DDL 수행 성공 시 0 반환.. (참고용)
+			
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	
+	
+	/** 게시글 삭제 DAO
+	 * @param conn
+	 * @param boardNo
+	 * @return result
+	 * @throws Exception
+	 */
+	public int updateDeleteFl(Connection conn, int boardNo) throws Exception {
+		int result =0;
+		
+		try {
+			String query = prop.getProperty("updateDeleteFl");
+			
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			
+		}finally {
+			close(pstmt);
+			
+		}
+		return result;
+	}
+
+
+	
+	
+	/** 게시글 검색 DAO
+	 * @param conn
+	 * @param query
 	 * @return list
 	 * @throws Exception
 	 */
-	public List<VBoard> selectAllBoard(Connection conn) throws Exception {
-		// 조회 결과를 저장하고 반환할 변수 선언
+	public List<VBoard> searchBoard(Connection conn, String query) throws Exception {
 		List<VBoard> list = null;
 		
 		try {
-			String query = prop.getProperty("selectAllBoard");
+			// query를 Service에서 완성하여 얻어왔으므로
+			// 바로 Statement 객체를 생성하여 수행
 			stmt = conn.createStatement();
-			
-			// SQL 수행 후 조회 결과 반환
 			rset = stmt.executeQuery(query);
 			
-			// SQL 수행 시 문제가 없었다면 조회 내용을 저장할 list 객체를 생성
 			list = new ArrayList<VBoard>();
 			
 			while(rset.next()) {
-				
 				list.add(new VBoard(rset.getInt("BOARD_NO"), 
-						            rset.getString("TITLE"), 
-						            rset.getDate("CREATE_DT"), 
-						            rset.getInt("READ_COUNT"), 
-						            rset.getString("MEM_NM"), 
-						            rset.getString("CATEGORY_NM")) );
+			            rset.getString("TITLE"), 
+			            rset.getDate("CREATE_DT"), 
+			            rset.getInt("READ_COUNT"), 
+			            rset.getString("MEM_NM"), 
+			            rset.getString("CATEGORY_NM")) );
 			}
 		}finally {
 			close(rset);
 			close(stmt);
 		}
 		return list;
-	}
-
-
-	/** 게시글 상세조회 DAO
-	 * @param conn
-	 * @param boardNo
-	 * @return vboard
-	 * @throws Exception
-	 */
-	public VBoard selectBoard(Connection conn, int boardNo) throws Exception {
-		VBoard vboard = null;
-		
-		try {
-			String query = prop.getProperty("selectBoard");
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, boardNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				vboard =new VBoard( rset.getInt("BOARD_NO"), 
-			            rset.getString("TITLE"), 
-			            rset.getString("CONTENT"),
-			            rset.getDate("CREATE_DT"), 
-			            rset.getInt("READ_COUNT"), 
-			            rset.getString("MEM_NM"), 
-			            rset.getString("CATEGORY_NM"));
-			}
-			
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return vboard;
-	}
-
-
-	/** 게시글 조회수 증가 DAO
-	 * @param conn 
-	 * @param boardNo
-	 * @return result
-	 * @throws Exception
-	 */
-	public int updateReadCount(Connection conn, int boardNo) throws Exception {
-		int result = 0;
-		try {
-			String query = prop.getProperty("updateReadCount");
-			
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1,boardNo);
-			
-			result = pstmt.executeUpdate();
-		}finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
-
-	/** 게시글 작성 DAO
-	 * @param conn
-	 * @param board
-	 * @return result
-	 * @throws Exception
-	 */
-	public int insertBoard(Connection conn, Board board)throws Exception {
-		
-		int result = 0; // DB 수행 결과를 저장할 변수 선언
-		
-		try {
-			String query = prop.getProperty("insertBoard");
-			
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, board.getContent());
-			pstmt.setInt(3, board.getMemNo());
-			pstmt.setInt(4, board.getCategoryCd());
-			
-			result = pstmt.executeUpdate();
-			
-		}finally {
-			close(pstmt);
-		}
-		return result;
 	}
 }
 
