@@ -47,7 +47,7 @@ public class JurrTemplate {
 				
 			
 				Class.forName(prop.getProperty("driver"));
-				conn = DriverManager.getConnection(prop.getProperty("url"), prop.getProperty("user"), prop.getProperty("password"));
+				conn = DriverManager.getConnection(prop.getProperty("url"), prop.   getProperty("user"), prop.getProperty("password"));
 				
 				
 				conn.setAutoCommit(false);

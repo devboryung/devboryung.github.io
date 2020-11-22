@@ -109,12 +109,12 @@ public class JurrView implements JurrViewInterface {
 			try {
 				if(loginMember == null) { 
 					System.out.println("◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆");
-					System.out.println("◆◇◆◇   JURR PROJECT   ◆◇◆◇");
-					System.out.println("◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆");
-					System.out.println("▷▷▷  1.        로그인       ◁◁◁◁◁");
-					System.out.println("▶▶▶  2.       회원가입     ◀◀◀◀◀");
-					System.out.println("▷▷▷  0.   프로그램 종료    ◁◁◁◁");
-					System.out.println("◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇");
+	                  System.out.println("◆◇◆◇ JURR PROJECT◆◇◆◇");
+	                  System.out.println("◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆");
+	                  System.out.println("▷▷▷ 1.  로그인  　◁◁◁◁◁");
+	                  System.out.println("▶▶▶ 2.  회원가입  ◀◀◀◀◀");
+	                  System.out.println("▷▷▷ 0.　프로그램 종료◁◁◁◁");
+	                  System.out.println("◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇");
 
 					System.out.print("메뉴 선택 >> ");
 					sel = sc.nextInt();
@@ -175,38 +175,60 @@ public class JurrView implements JurrViewInterface {
 	 */
 	@Override
 	public void signUp() {
-		System.out.println("[ 회원 가입]");
+	      System.out.println("[ 회원 가입]");
 
-		System.out.println("아이디 : ");
-		String memId = sc.nextLine();
-		System.out.println("비밀번호 : ");
-		String memPw = sc.nextLine();
-		System.out.println("이름 : ");
-		String memNm = sc.nextLine();
-		System.out.println("전화번호 : ");
-		String phone = sc.nextLine();
-		System.out.println("주소 : ");
-		String address = sc.nextLine();
+	      System.out.print("아이디 : ");
+	      String memId = sc.nextLine();
+	      System.out.print("비밀번호 : ");
+	      String memPw = sc.nextLine();
+	      System.out.print("이름 : ");
+	      String memNm = sc.nextLine();
+	      System.out.print("전화번호 : ");
+	      String phone = sc.nextLine();
+	      System.out.print("주소 : ");
+	      String address = sc.nextLine();
 
-		Member newMember = new Member(memId, memPw, memNm, phone, address);
+	      Member newMember = new Member(memId, memPw, memNm, phone, address);
+	      
+	      String random = "";
+	      
+	      int i = 0;   
+	      while(i<=5) {
+	         char num = (char)((Math.random()*74) +49) ;
+	         if(num > '9' && num < 'A' || num > 'Z' && num < 'a') {
+	            continue;
+	         }else {
+	            random += num;
+	            i++;
+	         }
+	      }
+	      
+	      System.out.println("자동회원가입 방지시스템" );
+	      System.out.println("["+ random + "] 을 입력하세요." );
+	      System.out.print("입력 : ");
+	      String input = sc.nextLine();
 
-		try {
-			int result = mService.signUp(newMember);
+	      if(input.equals(random)) {
+	      
+	      try {
+	         int result = mService.signUp(newMember);
 
-			if(result > 0 ) {
-				System.out.println("축하합니다!" + memNm + "님! 단군마켓의 회원이 되셨습니다");
-			}else {
-				System.out.println("회원가입하기 싫으신가요?");
-			}
+	         if(result > 0 ) {
+	            System.out.println("축하합니다!" + memNm + "님! 단군마켓의 회원이 되셨습니다");
+	         }else {
+	            System.out.println("회원가입하기 싫으신가요?");
+	         }
 
-		} catch (Exception e) {
-			System.out.println("회원가입 과정에서 오류 발생");
-			e.printStackTrace();
-		}
-
-
-
-	}
+	      } catch (Exception e) {
+	         System.out.println("회원가입 과정에서 오류 발생");
+	         e.printStackTrace();
+	      }
+	         
+	      }else {
+	         System.out.println("자동 회원가입 방지!!!");
+	      }
+	         
+	   }
 
 
 	/** 작성자 김만희
@@ -684,14 +706,14 @@ public class JurrView implements JurrViewInterface {
 	public void myDanKunLV() {
 		System.out.println("~**~나의 단군 레벨~**~");
 		try {
-
+			
 			int memNo = loginMember.getMemNo();
-
-
+			
+			
 			Member member = mService.myDanKunLV(memNo);
-
-			System.out.println(member.getMemNm()+"회원님은 LV."+ member.getDankunLv() +"입니다."); 
-
+			System.out.println("테스트 3:");
+			//loginMember.setDankunLv(member.getDankunLv());	
+			System.out.println(member.getMemNm()+"회원님은 LV."+ member.getDankunLv() +"(POINT:"+member.getPoint() +"점) 입니다."); 
 
 		}catch(Exception e){
 			System.out.println("레벨 조회과정에서 오류가 발생했습니다.");
@@ -774,7 +796,10 @@ public class JurrView implements JurrViewInterface {
 
 				int result = mService.updateSecessionMeber(member);
 
-				if(result>0) System.out.println("탈퇴되었습니다...ㅠㅠ");
+				if(result>0) {
+					System.out.println("탈퇴되었습니다...ㅠㅠ");
+					loginMember = null;
+				}
 				else	System.out.println("비밀번호가 일치하지 않습니다."); 
 
 			}catch(Exception e) {
@@ -792,6 +817,7 @@ public class JurrView implements JurrViewInterface {
 
 
 }
+
 
 ```
 
@@ -977,9 +1003,14 @@ public class MemberService {
 			
 			
 			if(result >0) {
+				
 				member.setDankunLv(member1.getDankunLv());
+				commit(conn);
+			}else {
+				rollback(conn);
 			}
 			
+			close(conn);
 		}
 
 		return member;
@@ -1027,6 +1058,7 @@ public class MemberService {
 		
 		return result;
 	}
+
 
 }
 
@@ -1385,7 +1417,6 @@ public class MemberDAO {
 	}
 
 
-
 }
 
 
@@ -1394,11 +1425,15 @@ public class MemberDAO {
 //ProductService.java
 package manat.jurr.model.service;
 
-import static manat.jurr.common.JurrTemplate.*;
+import static manat.jurr.common.JurrTemplate.close;
+import static manat.jurr.common.JurrTemplate.commit;
+import static manat.jurr.common.JurrTemplate.getConnection;
+import static manat.jurr.common.JurrTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import manat.jurr.model.DAO.ProductDAO;
 import manat.jurr.model.vo.Product;
@@ -1407,6 +1442,7 @@ import manat.jurr.model.vo.VProduct;
 public class ProductService {
 	
 	private ProductDAO pDAO = new ProductDAO(); 
+	private Scanner sc = new Scanner(System.in);
 	
 	
 	
@@ -1450,25 +1486,31 @@ public class ProductService {
 	 * @throws Exception
 	 */
 	public List<VProduct> searchKeyword(Map<String, Object> map) throws Exception {
-		Connection conn = getConnection();
-		
-		String query = "SELECT * FROM V_PRODUCT WHERE";
-		String like = "Like '%" + map.get("keyword") + "%'";
-		String equals = "= " + map.get("keyword");
-		
-		switch((int)map.get("sel")) {
-		case 1 : query += " ITEM_NM " + like; break; //상품명 조회
-		case 2 : query += " KIND " + like; break; //카테고리 조회
-		case 3 : query += " PRICE " + equals; break; //가격으로 조회
-		case 4 : query += " ADDRESS " + like; break; //위치로 조회
-		}
-		query += "ORDER BY ITEM_NO DESC";
-		
-		List<VProduct> list = pDAO.searchKeyword(conn, query);
-		close(conn);
-		
-		return list;
-	}
+	      Connection conn = getConnection();
+	      
+	      
+	      String query = "SELECT * FROM V_PRODUCT WHERE";
+	      String like = "Like '%" + map.get("keyword") + "%'";
+	      String priceRange = "BETWEEN " + map.get("keyword");
+	      
+	      
+	      switch((int)map.get("sel")) {
+	      case 1 : query += " ITEM_NM " + like; break; //상품명 조회
+	      case 2 : query += " KIND " + like; break; //카테고리 조회
+	      case 3 : 
+	         System.out.print(map.get("keyword") + " 원 이상 ");
+	         String keyword2 = sc.nextLine();
+	         map.put("keyword2", keyword2);
+	         query += " PRICE " + priceRange  + " AND "  + map.get("keyword2"); break; //가격으로 조회
+	      case 4 : query += " ADDRESS " + like; break; //위치로 조회
+	      }
+	      query += " AND DELETE_FL='N' ORDER BY ITEM_NO DESC";
+	      
+	      List<VProduct> list = pDAO.searchKeyword(conn, query);
+	      close(conn);
+	      
+	      return list;
+	   }
 
 	/** 상품번호로 판매글 간단 조회 service
 	 * @author 박혜윤
@@ -1668,6 +1710,8 @@ public class ProductDAO {
 		}
 		return product;
 	}
+	
+	
 
 	/** 상품번호로 상품 구매 DAO
 	 * @author 박혜윤
@@ -1712,7 +1756,7 @@ public class ProductDAO {
 			result = pstmt.executeUpdate();
 			
 			if(result>0) {
-				message = "단군 포인트 5점이 적립되었습니다.";
+				message = "구매 감사합니다. 구매하신 상품의 마켓 점수가 5점 상승되었습니다.";
 			} else {
 				message = "포인트 적립이 정상적으로 처리되지 않았습니다. 고객센터 1555-5555";
 			}
@@ -1725,6 +1769,7 @@ public class ProductDAO {
 	}
 
 }
+
 
 ```
 
