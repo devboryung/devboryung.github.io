@@ -1,6 +1,6 @@
 ---
-title: "2020년 11월 23일"
-excerpt: "JDBC-6"
+title: "2020년 11월 25일"
+excerpt: "HTML-1"
 search: true
 categories: 
   - Academy
