@@ -10,7 +10,7 @@ toc: true
 ---
 
 ## 01_글자관련태그
-<br/><br/>
+<br/>
 
 ```html
 <!DOCTYPE html>
@@ -122,18 +122,24 @@ pre 태그는
 
 </html>
 ```
-
 <br/>
+#출력 화면<br/>
+
+![html1-1](https://user-images.githubusercontent.com/73421820/100327312-7d03ab80-300e-11eb-82ad-a59c34bc323b.PNG)
+![html1-2](https://user-images.githubusercontent.com/73421820/100327410-9b69a700-300e-11eb-8a5a-888bdd20560f.PNG)
+
+
+<br/><br/>
 
 ## 02_목록관련태그
-<br/><br/>
+<br/>
 
 ```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>02_목록관련태그</title>
 </head>
 <body>
@@ -212,9 +218,16 @@ pre 태그는
 
 ```
 <br/>
+#출력 화면<br/>
+
+![html2-1](https://user-images.githubusercontent.com/73421820/100328394-d02a2e00-300f-11eb-88b4-1c0c672d9a55.PNG)
+![html2-2](https://user-images.githubusercontent.com/73421820/100328885-5cd4ec00-3010-11eb-87cc-937b8c4623a3.PNG)
+
+
+<br/><br/>
 
 ## 03_글자, 목록 태그 연습문제
-<br/><br/>
+<br/>
 
 ```html
 <!DOCTYPE html>
@@ -222,7 +235,7 @@ pre 태그는
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>03_글자, 목록 태그 연습문제</title>
 </head>
 
@@ -269,16 +282,23 @@ pre 태그는
 
 ```
 <br/>
+#출력 화면<br/>
+
+![html3](https://user-images.githubusercontent.com/73421820/100329045-85f57c80-3010-11eb-9ce8-1295b59ae69f.PNG)
+
+
+
+<br/><br/>
 
 ## 04_표 관련 태그
-<br/><br/>
+<br/>
 
 ```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>04_표 관련 태그</title>
 
     <style>
@@ -446,9 +466,14 @@ pre 태그는
 ```
 
 <br/>
+#출력 화면<br/>
+
+![html4-1](https://user-images.githubusercontent.com/73421820/100329454-04521e80-3011-11eb-8391-0b1c9f0cf0d9.PNG)
+![html4-2](https://user-images.githubusercontent.com/73421820/100329464-074d0f00-3011-11eb-828d-1bee7fe38430.PNG)
+<br/><br/>
 
 ## 05_표 관련 태그 연습문제
-<br/><br/>
+<br/>
 
 ```html
 <!DOCTYPE html>
@@ -533,9 +558,14 @@ pre 태그는
 
 ```
 <br/>
+#출력 화면<br/>
+
+![html5](https://user-images.githubusercontent.com/73421820/100329642-4b401400-3011-11eb-8277-ea81a841a47a.PNG)
+
+<br/><br/>
 
 ## 06_영역 관련 태그
-<br/><br/>
+<br/>
 ```html
 <!DOCTYPE html>
 <html lang="ko">
@@ -623,5 +653,13 @@ pre 태그는
 </body>
 </html>
 ```
+<br/>
+#출력 화면<br/>
+
+![html6-1](https://user-images.githubusercontent.com/73421820/100329933-a83bca00-3011-11eb-8357-672201632d52.PNG)
+![html6-2](https://user-images.githubusercontent.com/73421820/100329936-a8d46080-3011-11eb-97db-dcb28dc1c8dc.PNG)
+
+
+<br/><br/>
 
 <br/><br/>
