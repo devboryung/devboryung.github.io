@@ -10,7 +10,6 @@ toc: true
 ---
 
 ## 07_이미지 관련 태그
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -85,7 +84,6 @@ toc: true
 <br/>
 
 ## 08_미디어 관련 태그
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -266,7 +264,6 @@ toc: true
 <br/><br/>
 
 ## 10_폼 관련 태그
-<br/>
 
 ```html
 <!DOCTYPE html>

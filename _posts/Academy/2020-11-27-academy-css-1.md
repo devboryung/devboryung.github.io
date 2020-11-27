@@ -11,7 +11,6 @@ toc: true
 ---
 
 ## 01_CSS 선택자 1
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -117,7 +116,6 @@ toc: true
 <br/>
 
 ## 02_CSS 선택자 2
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -300,7 +298,6 @@ toc: true
 <br/><br/>
 
 ## 03_CSS 선택자 3
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -398,7 +395,6 @@ toc: true
 <br/><br/>
 
 ## 04_CSS 선택자 4.html
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -471,7 +467,6 @@ toc: true
 <br/><br/>
 
 ## 04_CSS 선택자 4.css
-<br/>
 
 ```css
 /*일반 구조 선택자*/
@@ -578,7 +573,6 @@ toc: true
 <br/><br/>
 
 ## 05_선택자 우선 순위
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -643,7 +637,6 @@ toc: true
 <br/><br/>
 
 ## 06_글꼴 관련 스타일.html
-<br/>
 
 ```html
 <!DOCTYPE html>
@@ -735,7 +728,6 @@ toc: true
 <br/>
 
 ## 06_글꼴 관련 스타일.css
-<br/>
 
 ```css
 @font-face {
@@ -811,7 +803,7 @@ toc: true
 <br/><br/>
 
 ## 07_텍스트 관련 스타일.html
-<br/>
+
 
 ```html
 <!DOCTYPE html>
