@@ -120,20 +120,14 @@
 
   img {
     max-width: 180px;
-    border-radius: 50%;
+    border-radius: 15%;
 
     @include breakpoint($large) {
-      padding: 5px;
+      padding: 0;
       border: 1px solid $border-color;
     }
   }
-  //이미지 회전
-  img:hover {
-    //-ms-transform: scale(1.5); /* IE 9 */
-    //-webkit-transform: scale(1.5); /* Safari 3-8 */
-    transition-duration: 1s; //회전 시간
-    transform: rotate(200deg); //회전률
-    }
+  
 }
 
 
