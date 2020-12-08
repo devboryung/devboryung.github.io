@@ -58,7 +58,7 @@ HTML 문서 내에 기술되고 , HTML과 함께 웹 브라우저에 의해서 �
 <br/><br/>
 
 
-## internal 방식
+### internal 방식
 
 자바스크립트 내용을 &lt;script&gt; 태그에 작성하여 실행되게하는 방식이다.
 script태그는 head, body 태그 내부에 작성함. (보통 body태그 맨 마지막에 사용하는 것을 권장함.)   
@@ -80,7 +80,7 @@ script태그는 head, body 태그 내부에 작성함. (보통 body태그 맨 �
 
 <br/><br/>
 
-## external 방식
+### external 방식
 별도의 .js 파일을 생성하여 해당 파일에 자바스크립트 코드를 작성하고 가져다 사용하는 방법으로, js폴더를 만들어 내부에 sample.js 파일을 생성 후 함수를 작성한다.<br/>
 실제 개발에서 가장 많이 사용되는 방법이며 , 언어와 역할을 분리하기,서로 분업이 쉬워진다.
 
@@ -139,7 +139,7 @@ function sampleFn(msg){
 
 <br/><br/>
 
-## innerText /innerHTML 를 이용한 내용 변경
+### innerText /innerHTML 를 이용한 내용 변경
 **innerText : 자바스크립트에서 요소의 내용을 읽거나 변경할 때 innerText라는 속성을 사용함.
 태그가 인식이 안 되며 텍스트 형태로 출력된다.<br/>
 **innerHTML : 요소의 내용을 변경할 때 내용에 포함된 태그를 
@@ -185,7 +185,7 @@ function sampleFn(msg){
 <br/><br/>
 
 
-## console.log()
+### console.log()
 브라우저 개발자도구 -> console 화면에 내용을 출력하고자 할 때 사용.<br/>
 (주로 디버깅할 때 사용.)
 
@@ -204,7 +204,7 @@ function sampleFn(msg){
 
 
 
-## window.confirm()을 이용한 데이터 입력
+### window.confirm()을 이용한 데이터 입력
 어떤 질문에 "예 / 아니오" 의 결과를 얻고자 할 때 사용함.<br/>
 경고창에 "확인","취소" 버튼이 나타나며<br/>
 "확인" 클릭 시 true, "취소" 클릭 시 false 가 반환된다.   <br/>
@@ -253,7 +253,33 @@ function sampleFn(msg){
 ```
 <br/><br/>
 
-## HTML태그 아이디로 접근
+### window.prompt()를 이용한 데이터 입력
+텍스트를 적을 수 있는 필드와 확인/취소 버튼이 있는 대화 상자를 출력.<br/>
+
+텍스트를 입력한 후 확인 버튼을 누르면 입력된 텍스트가 반환됨.
+
+```html
+<div id="area3"></div>
+    <button type="button" onclick="testPrompt()">이름 입력</button>
+
+    <script>
+        function testPrompt(){
+            var name = window.prompt("이름을 입력하세요.");
+
+            var area3 = document.getElementById("area3");
+
+            if(name!=null){
+            area3.innerHTML = "<strong>" + name +"</strong>님 환영합니다.";
+            }
+        }
+    </script>
+
+```
+<br/><br/>
+
+## HTML 태그 접근
+
+### HTML태그 아이디로 접근
  
 
 ```html
@@ -296,7 +322,7 @@ function sampleFn(msg){
 
 
 
-## HTML태그 클래스명으로 접근
+### HTML태그 클래스명으로 접근
 
 
 ```html
@@ -321,7 +347,7 @@ function sampleFn(msg){
 <br/><br/>
 
 
-## HTML태그 태그명으로 접근
+### HTML태그 태그명으로 접근
 
 
 ```html
@@ -351,7 +377,7 @@ function sampleFn(msg){
 <br/><br/>
 
 
-## HTML태그 name으로 접근
+### HTML태그 name으로 접근
 
 
 ```html
@@ -430,7 +456,7 @@ function sampleFn(msg){
 ```
 <br/><br/>
 
-## text box(입력상자)에 작성된 값 읽어오기
+### text box(입력상자)에 작성된 값 읽어오기
 
 
 ```html
@@ -482,7 +508,8 @@ function sampleFn(msg){
             }
         </script>
     </pre>
-```
+``` 
+
 ```html
 <script>
         // 전역 변수 선언
@@ -607,7 +634,7 @@ function sampleFn(msg){
 <br/><br/>
 
 
-## 문자열(string)
+### 문자열(string)
 "" 또는 ''으로 묶여 있는 리터럴 <br/>
 자바스크립터에서 문자열을 위한 함수가 내장되어 있는  내장객체 String을 제공함.
 
@@ -657,7 +684,7 @@ function sampleFn(msg){
 <br/><br/>
 
 
-## 숫자(number)
+### 숫자(number)
  정수, 부동소수점(실수), Infinity, NaN 리터럴이 존재.<br/>
 수학과 관련된 함수를 제공하는 Math 내장 객체가 존재함.
 

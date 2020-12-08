@@ -17,12 +17,13 @@ toc: true
 ** 자바스크립트 문자열 리터럴 표기법 : "", ''
 {: .notice--success}
 <br/>
+ 
 
 
 
 <br/><br/>
 
-## "", '' 혼용 사용
+### "", '' 혼용 사용
 
 "", '' 두 기호를 혼용해서 사용하는 경우 : <br/>
 인라인 방식의 자바스크립트 함수 호출 시 매개변수로 문자열이 포함되는 경우;<br/>
@@ -43,7 +44,7 @@ toc: true
 <br/><br/>
 
 
-## 문자열과 숫자의 + 연산
+### 문자열과 숫자의 + 연산
 
 문자열 + 숫자열 = 문자열(이어쓰기)<br/>
 숫자 + 문자열 = 문자열(이어쓰기)<br/>
@@ -79,7 +80,7 @@ toc: true
 
 <br/><br/>
 
-## 문자열 -> 숫자
+### 문자열 -> 숫자
 input태그등을 이용한 입력된 숫자는 숫자가 아닌 문자열로 인식됨.<br/><br/>
 자바스크립트에서 문자열 -> 숫자로 바꿀 수 있는<br/>
 내장객체 Number()와  내장함수 parseInt(), parseFloat()가 있음. <br/>
@@ -137,7 +138,7 @@ input태그등을 이용한 입력된 숫자는 숫자가 아닌 문자열로 �
      ex) 2 == 2 > true  /  2 == "2" > true<br/><br/>
 === , !== : 일치 연산자 , 동일 비교 연산자  <br/>
           ->자료형과 값이 모두 일치하는지를 비교<br/>
-         ex) 2 == 2 > true / 2 == "2" > false<br/>
+         ex) 2 === 2 > true / 2 === "2" > false<br/>
 {: .notice--success}
 <br/>
 
@@ -199,7 +200,7 @@ input태그등을 이용한 입력된 숫자는 숫자가 아닌 문자열로 �
 
 <br/><br/>
 
-## 연산자를 이용한 짧은 조건문
+### 연산자를 이용한 짧은 조건문
 && : 참이면 수행<br/>
 || : 거짓이면 수행<br/>
 <br/>
@@ -275,7 +276,7 @@ input태그등을 이용한 입력된 숫자는 숫자가 아닌 문자열로 �
 <br/><br/>
 
 
-## 배열 선언 및 할당
+### 배열 선언 및 할당
 배열 선언 및 할당 시 크기를 지정하거나, 지정하지 않을 수 있다.
 
 ```html
@@ -370,7 +371,7 @@ reverse() : 배열의 순서를 뒤집음.<br/>
 ```
 <br/><br/>
 
-## toString(), join() : 배열 요소를 결합하여 하나의 문자열로 반환.
+### toString(), join() : 배열 요소를 결합하여 하나의 문자열로 반환.
  - toString() : 요소 사이에 , 를 찍음.<br/>
  - join() : 요소 사이에 구분자를 지정.<br/>
 
@@ -399,7 +400,7 @@ reverse() : 배열의 순서를 뒤집음.<br/>
 
 
 
-## sort(), reverse()
+### sort(), reverse()
 - sort() : 배열을 오름차순 정렬 <br/>
 - reverse() : 배열의 순서를 뒤집음.
 
@@ -437,7 +438,7 @@ reverse() : 배열의 순서를 뒤집음.<br/>
 <br/><br/>
 
 
-## push(),pop(),shift(),unshift()
+### push(),pop(),shift(),unshift()
 - push() : 배열의 맨 뒤에 요소 추가<br/>
 - pop() : 배열의 맨 뒤 요소를 꺼내옴(제거) <br/><br/>
 - shift() : 배열의 맨 앞에 요소를 제거<br/>
@@ -478,7 +479,7 @@ reverse() : 배열의 순서를 뒤집음.<br/>
 <br/><br/>
 
 
-## slice(),splice()
+### slice(),splice()
 - slice() : 배열 요소를 선택해서 자르기 <br>
 - splice() : 배열의 지정한 index 위치 요소 제거 후 새로운 요소를 추가
 
@@ -512,7 +513,7 @@ reverse() : 배열의 순서를 뒤집음.<br/>
 ```
 <br/><br/>
 
-## 연습문제 
+## 연습문제 _ input값에 따라 색 변경하기
 
 
 ```html
@@ -581,4 +582,193 @@ reverse() : 배열의 순서를 뒤집음.<br/>
 </body>
 ```
 <br/><br/>
+
+## 연습문제 _ 로또 모양 출력하기
+-1~45 난수 생성, 중복 제거, 오름차순 정렬
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10_연습문제_로또</title>
+    <style>
+        .wrapper{
+            margin:auto;
+        }
+        .lotto{
+           
+            width:100px;
+            height:100px;
+            border: 1px solid black;
+            border-radius: 50px; 
+            display:inline-block;
+            
+            text-align: center;
+            line-height : 100px;
+
+            font-size : 50px;
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="lotto" id="lotto1"></div>
+    <div class="lotto" id="lotto2"></div>
+    <div class="lotto" id="lotto3"></div>
+    <div class="lotto" id="lotto4"></div>
+    <div class="lotto" id="lotto5"></div>
+    <div class="lotto" id="lotto6"></div>
+    <div class="lotto" id="lotto7"></div>
+</div>
+
+    <br><br>
+    <button type="button" id="lottobtn">2중 for문</button>
+    <button type="button" id="lottobtn2">indexof</button>
+    <button type="button" id="lottobtn3">set</button>
+
+    <script>
+        
+        document.getElementById("lottobtn").onclick =function(){
+
+            // 로또 번호 입력할 배열 생성
+            var lotto = document.getElementsByClassName("lotto");
+           
+
+             var num =[]; // 번호 담을 배열 생성 [보너스번호까지 7개]
+
+            //  //랜덤 번호 생성
+             for(var i=0; i<7; i++){
+                var flag = true;
+                 var ran = Math.floor(Math.random()*45+1);
+                    for(var j=0; j<i ;j++){
+                        if(num[j]==ran){
+                             i--;
+                             flag=false;
+                        }
+                    }
+                    num.sort(function(a, b){return a-b;});
+                 if(flag){
+                 num[i] = ran;
+                 }   
+              }
+            console.log(num);
+
+            for(var i=0; i<lotto.length; i++){
+                lotto[i].innerHTML += num[i];
+
+                if(num[i]<=10){
+                    lotto[i].style.backgroundColor =" #fbc400";
+                }
+                else if(num[i]<=20){
+                    lotto[i].style.backgroundColor =" #69c8f2";
+                }
+                else if(num[i]<=30){
+                    lotto[i].style.backgroundColor ="  #ff7272";
+                }
+                else if(num[i]<=40){
+                    lotto[i].style.backgroundColor ="#aaa";
+                }
+                else{
+                    lotto[i].style.backgroundColor =" #b0d840"
+                }
+
+            }
+            
+        }
+        document.getElementById("lottobtn2").onclick = function(){
+            
+            var lotto = document.getElementsByClassName("lotto");
+
+            var arr = []; //난수 담아 둘 배열 생성
+
+            for(var i=0; i<lotto.length; i++){
+                var num = Math.floor(Math.random()*45+1);
+
+                if(arr.indexOf(num) == -1){ // arr의 index 중 num과 같은 숫자가 없다면
+                    arr.push(num);
+                }else{
+                    i--;
+                }
+            }
+
+            for(var i=0; i<lotto.length; i++){
+                
+                lotto[i].innerHTML += arr[i];
+
+                if(arr[i]<=10){
+                    lotto[i].style.backgroundColor =" #fbc400";
+                }
+                else if(arr[i]<=20){
+                    lotto[i].style.backgroundColor =" #69c8f2";
+                }
+                else if(arr[i]<=30){
+                    lotto[i].style.backgroundColor ="  #ff7272";
+                }
+                else if(arr[i]<=40){
+                    lotto[i].style.backgroundColor ="#aaa";
+                }
+                else{
+                    lotto[i].style.backgroundColor =" #b0d840"
+                }    
+            }
+        }
+
+        document.getElementById("lottobtn3").onclick = function(){
+
+            var lotto = document.getElementsByClassName("lotto");
+
+            var set = new Set();
+                   
+            // set의 요소가 7개가 될 때 까지 난수 발생.
+            while(set.size<7){
+                set.add(Math.floor(Math.random()*45+1));
+            }
+            
+            // 정렬을 위해서 set -> array로 변환
+            var arr = new Array();
+
+            for(var i of set){
+                arr.push(i); 
+            }
+            // set에서 요소를 하나씩 꺼내 arr의 맨 뒤에 추가한다.
+
+            console.log(arr.sort(function(a,b){return a-b;}));
+
+
+            for(var i=0; i<lotto.length ; i++){
+                lotto[i].innerHTML += arr[i];
+
+                if(arr[i]<=10){
+                    lotto[i].style.backgroundColor =" #fbc400";
+                }
+                else if(arr[i]<=20){
+                    lotto[i].style.backgroundColor =" #69c8f2";
+                }
+                else if(arr[i]<=30){
+                    lotto[i].style.backgroundColor ="  #ff7272";
+                }
+                else if(arr[i]<=40){
+                    lotto[i].style.backgroundColor ="#aaa";
+                }
+                else{
+                    lotto[i].style.backgroundColor =" #b0d840"
+                }
+            }
+        }
+
+
+        
+    </script>
+
+</body>
+```
+<br/><br/>
+
+
 
