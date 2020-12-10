@@ -10,7 +10,7 @@ tags:
 toc: true
 ---
 
-## 함수(function)
+### 함수(function)
 ```html
     <h1>함수(function)</h1>
     <h3>기본적인 함수 정의, 호출 방법</h3>
