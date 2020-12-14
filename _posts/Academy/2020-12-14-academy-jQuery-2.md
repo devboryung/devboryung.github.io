@@ -352,7 +352,7 @@ $(B).insertBefore(A) : B를 A의 요소 앞에 추가(형제)
 
 ### each() 메소드
 ```html
-<h3>객체 제거 메소드</h3>
+<h1>each() 메소드</h1>
 <pre>
 객체, 배열을 순차 접근하는 for in, for of와 비슷한 메소드로
 
@@ -360,40 +360,40 @@ $(B).insertBefore(A) : B를 A의 요소 앞에 추가(형제)
 
 [작성법]
 1) $.each(object, function(index, item){});
-object : 객체 또는 배열
-index : 현재 접근중인 배역의 인덱스 또는 배열의 key 값
-item : 현재 접근중인 배열의 요소 또는 객체의 value 값
+    object : 객체 또는 배열
+    index : 현재 접근중인 배역의 인덱스 또는 배열의 key 값
+    item : 현재 접근중인 배열의 요소 또는 객체의 value 값
 
 2) $("선택자").each(function(index,item){});
-$("선택자") : 여러 요소를 배열로 반환
+    $("선택자") : 여러 요소를 배열로 반환
 </pre>
 
 <div id="area1"></div>
 
 
 <script>
-$(document).ready(function(){
-    // 객체배열 생성
-    var arr = [{name : "네이버", link : "https://www.naver.com"},
-                {name : "구글", link : "https://www.google.com"},
-                {name : "w3school", link : "https://www.w3schools.com"}];
+    $(document).ready(function(){
+        // 객체배열 생성
+        var arr = [{name : "네이버", link : "https://www.naver.com"},
+                    {name : "구글", link : "https://www.google.com"},
+                    {name : "w3school", link : "https://www.w3schools.com"}];
 
-    $.each(arr, function(index,item){
-        // console.log(index);
-        // console.log(item);
-    
-        // a태그 생성
-        var str = index + "번째 : " + item.name + "로 이동";
-        var el = $("<a>").text(str).attr("href",item.link);
-        // .attr("속성명","속성값")
-        // -> 해당 요소에 특정 속성 추가
-        $("#area1").append(el);
-        $("#area1").append($("<br>")); // br태그 추가
-    
-    
+        $.each(arr, function(index,item){
+            // console.log(index);
+            // console.log(item);
+        
+            // a태그 생성
+            var str = index + "번째 : " + item.name + "로 이동";
+            var el = $("<a>").text(str).attr("href",item.link);
+            // .attr("속성명","속성값")
+            // -> 해당 요소에 특정 속성 추가
+            $("#area1").append(el);
+            $("#area1").append($("<br>")); // br태그 추가
+        
+        
+        });
+
     });
-
-});
 </script>
 
 
@@ -423,6 +423,7 @@ $(document).ready(function(){
     
     });
 </script>
+
 
 ```
 <br>
