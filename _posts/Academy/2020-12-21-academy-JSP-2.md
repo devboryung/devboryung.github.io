@@ -619,11 +619,11 @@ public class TestServlet4 extends HttpServlet {
  > Servlet과 반대로 HTML소스코드 속에
 자바 소스코드(<% %> 또는 <%= %>)가 들어가는 형태.<br>
  > 자바 소스코드로 작성된 부분은 웹 브라우저로 보내지지 않고
- 컴파일을 통해 클래스 파일로 변환되어 웹 서버(WAS)에서 실행됨.
-
+ 컴파일을 통해 클래스 파일로 변환되어 웹 서버(WAS)에서 실행됨.<br>
  <br><br>
 
- ### web.xml
+
+### web.xml
 
  ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -646,7 +646,7 @@ public class TestServlet4 extends HttpServlet {
  ```
 <br>
 
- ### index.html
+### index.html
  ```html
  <!DOCTYPE html>
 <html lang="ko">
