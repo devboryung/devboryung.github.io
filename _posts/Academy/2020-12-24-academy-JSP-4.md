@@ -448,7 +448,7 @@ public class JDBCTemplate {
 ```
 <br>
 
-### Member.vo
+## Member.vo
 ```java
 package com.kh.wsp.member.model.vo;
 
@@ -565,7 +565,7 @@ public class Member {
 <br>
 
 
-### 로그인용 Servlet
+## 로그인용 Servlet
 ```java
 package com.kh.wsp.member.controller;
 
@@ -700,7 +700,7 @@ public class LoginServlet extends HttpServlet {
 ```
 <br>
 
-### Service
+## Service
 ```java
 package com.kh.wsp.member.model.service;
 
@@ -739,7 +739,7 @@ public class MemberService {
 ```
 <br>
 
-### DAO
+## DAO
 ```java
 package com.kh.wsp.member.model.dao;
 
@@ -824,7 +824,7 @@ public class MemberDAO {
 ```
 <br>
 
-### 로그인용 sql
+## 로그인용 sql
 
 ```sql
 <?xml version="1.0" encoding="UTF-8"?>
