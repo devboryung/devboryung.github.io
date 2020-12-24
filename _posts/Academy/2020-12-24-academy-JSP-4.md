@@ -870,7 +870,6 @@ public class LogoutServlet extends HttpServlet {
 		// 로그 아웃 후 메인 or 로그아웃을 수행한 페이지로 리다이렉트 
 		// response.sendRedirect(request.getContextPath()); // 메인
 		response.sendRedirect(request.getHeader("referer")); // 로그아웃을 수행한 페이지
-	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
