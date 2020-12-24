@@ -1,5 +1,5 @@
 ---
-title: "2020년 12월 23일"
+title: "2020년 12월 24일"
 excerpt: "Servlet - 4"
 search: true
 categories: 
@@ -844,7 +844,8 @@ AND MEMBER_STATUS = 'Y'
 ```
 <br>
 
-### 로그아웃용 Servlet
+
+## 로그아웃용 Servlet
 ```java
 package com.kh.wsp.member.controller;
 
