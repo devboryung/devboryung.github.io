@@ -20,16 +20,21 @@ toc: true
 
 ### 로그인 모달창
 ![로그인모달창](https://user-images.githubusercontent.com/73421820/103096517-83a23480-4647-11eb-8bc4-6f64e56cd587.PNG)
+<br><br>
 
+### 로그인 후 화면
+![로그인 후 화면](https://user-images.githubusercontent.com/73421820/103096522-8735bb80-4647-11eb-975c-8c16727b4e24.PNG)
 <br><br>
 
 ### 로그인 실패
 ![로그인 실패](https://user-images.githubusercontent.com/73421820/103096519-84d36180-4647-11eb-9316-555aa3b81bfc.PNG)
 <br><br>
 
-### 로그인 후 화면
-![로그인 후 화면](https://user-images.githubusercontent.com/73421820/103096522-8735bb80-4647-11eb-975c-8c16727b4e24.PNG)
+
+### 로그인 시 에러 발생
+![에러 발생 시](https://user-images.githubusercontent.com/73421820/103102231-7775a180-465e-11eb-81e5-3775eda17c4d.PNG)
 <br><br>
+
 
 ## 배포시 시작 프로그램 지정
 
@@ -697,6 +702,28 @@ public class LoginServlet extends HttpServlet {
 	}
 
 }
+```
+<br>
+
+## 로그인 과정에서 오류 발생 시
+```html
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" isErrorPage="true"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>errorPage</title>
+</head>
+<body>
+   <h1 align="center">${errorMsg}</h1>
+   
+   <div align="center">
+      <button onclick="history.back();">이전 페이지로 이동</button>
+      <button onclick="location.href='${contextPath}'">메인 화면으로 돌아가기</button>
+   </div>
+</body>
+</html>
 ```
 <br>
 
