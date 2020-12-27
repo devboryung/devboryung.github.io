@@ -11,6 +11,7 @@ tags:
   - CSS
 toc: true
 ---
+
 ## Servlet - 3(비즈니스 로직)
 Servlet은 Java Class이기 때문에 비즈니스 로직(데이터 가공 처리 및 DB연결 관련 로직 등)<br>
 수행이 Front 관련 기술들 보다 간편하고 효율적으로 처리할 수 있다.
