@@ -1,6 +1,6 @@
 ---
 title: "2020년 12월 24일"
-excerpt: "WSP"
+excerpt: "WSP-1 "
 search: true
 categories: 
   - Academy

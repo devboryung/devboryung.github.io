@@ -1,6 +1,6 @@
 ---
 title: "2020년 12월 21일"
-excerpt: "Servlet - 1"
+excerpt: "Servlet-1"
 search: true
 categories: 
   - Academy

@@ -1,6 +1,6 @@
 ---
 title: "2020년 12월 22일"
-excerpt: "Servlet - 2, JSP"
+excerpt: "Servlet-2, JSP"
 search: true
 categories: 
   - Academy
