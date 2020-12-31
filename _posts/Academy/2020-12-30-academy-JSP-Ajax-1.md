@@ -647,7 +647,7 @@ public class JsAjaxServlet2 extends HttpServlet {
 
 
 ## jQuery방식 Ajax
-- JavaScript 방식보다 구현 방법이 간단함  코드 길이 감소
+- JavaScript 방식보다 구현 방법이 간단함 -> 코드 길이 감소
 - 직관적이며 다양한 방법의 코딩 가능
 - 크로스 브라우저 처리를 jQuery가 자동으로 해결
    ->JavaScript방식 XMLHttpRequest 객체 생성 시 브라우저 검사 생략 가능
@@ -763,6 +763,7 @@ public class JqueryAjaxServlet1 extends HttpServlet {
 
 
 ### GET방식 실시간 아이디 중복검사
+
 #### 출력 화면
 <br>
 
