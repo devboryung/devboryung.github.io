@@ -743,6 +743,11 @@ boardList.jsp
 <br>
 
 ### 게시판 페이징 처리
+<br>
+
+![페이징처리 48](https://user-images.githubusercontent.com/73421820/103616950-afd78280-4f70-11eb-97be-57e538177880.png)
+
+<br><br>
 
 boardList.jsp
 
