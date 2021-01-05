@@ -432,7 +432,7 @@ WHERE BOARD_STATUS = 'Y'
 <br><br>
 
 *게시글 목록 조회*
-목록 조회 후 boardList.jsp로 포워드
+
 
 BoardController.java
 
@@ -670,7 +670,8 @@ WHERE RNUM BETWEEN ? AND ?
 
 <br><br><br>
 
-
+목록 조회 후 boardList.jsp로 포워드
+<br>
 
 ### 게시판 초기 화면
 
