@@ -1,6 +1,6 @@
 ---
-title: "2020년 01월 04일"
-excerpt: "WSP-6"
+title: "2020년 01월 05일"
+excerpt: "WSP-7"
 search: true
 categories: 
   - Academy
