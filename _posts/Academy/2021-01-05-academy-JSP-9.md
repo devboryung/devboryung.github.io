@@ -745,7 +745,7 @@ boardList.jsp
 ### 게시판 페이징 처리
 <br>
 
-![페이징처리 48](https://user-images.githubusercontent.com/73421820/103616950-afd78280-4f70-11eb-97be-57e538177880.png)
+![페이징처리](https://user-images.githubusercontent.com/73421820/103618651-aa2f6c00-4f73-11eb-98ff-eac739ae526c.gif)
 
 <br><br>
 
