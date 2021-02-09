@@ -26,6 +26,7 @@ toc: true
 - Spring에서 라이브러리 추가하는 방법: <br>
 1. Maven을 이용하여 commons-fileupload 라이브러리 추가하기 <br>
 https://mvnrepository.com/ 접속 -> commons fileupload검색 ->  Apache Commons FileUpload클릭 -> 1.3.3클릭 -> Maven에 적혀있는 코드 복사 -> pom.xml에 dependencies태그 안에 붙여넣기 <br><br>
+
 ```xml
 <!--pom.xml-->
 <!-- 파일 업로드를 위한 라이브러리  -->
@@ -36,7 +37,9 @@ https://mvnrepository.com/ 접속 -> commons fileupload검색 ->  Apache Commons
     <version>1.3.3</version>
 </dependency>
 ```
+
 2. root-context.xml 파일에 CommonsMultipartResolver를 bean으로 등록하는 코드 추가<br><br><br>
+
 ```xml
 <!-- root-context.xml -->
  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -45,6 +48,7 @@ https://mvnrepository.com/ 접속 -> commons fileupload검색 ->  Apache Commons
    		<property name="maxInMemorySize" value="104857600"/>
 </bean>
 ```
+
 * MultipartResolver 클래스 bean 등록시 나타나는 효과 <br>
 MultipartResolver를 bean으로 등록하면 multipart/form-data 형식의 요청을 받게 될 경우 
 스프링 컨테이너가 해당 bean을 제어하여 input type="file" 태그를 변도로 얻어와서 처리하여 MultipartFile 객체로 반환해 준다.   <br>
