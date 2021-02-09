@@ -321,6 +321,25 @@ return date + str + ext;
 
 ```java
 // BoardDao.java
+
+/**  다음 게시글 번호 얻어오기 DAO
+    * @return result
+    */
+public int selectNextNo() {
+    return sqlSession.selectOne("boardMapper.selectNextNo");
+}
+
+
+
+/** 게시글 삽입 DAO
+    * @param map
+    * @return result
+    */
+public int insertBoard(Map<String, Object> map) {
+    return sqlSession.insert("boardMapper.insertBoard",map);
+}
+
+
 /** 파일 정보 삽입 DAO
 * @param uploadImages
 * @return result(성공한 행의 개수)
