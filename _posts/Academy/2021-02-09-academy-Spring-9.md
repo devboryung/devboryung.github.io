@@ -1,6 +1,6 @@
 ---
 title: "2020년 02월 09일"
-excerpt: "Spring 6 (자유게시판 게시글 등록)"
+excerpt: "Spring 7 (자유게시판 게시글 등록)"
 search: true
 categories: 
   - Academy
