@@ -121,6 +121,8 @@ if(result>0) {
 swalIcon= "success";
 swalTitle= "게시글 등록 성공";
 url = "redirect:"+result;
+// 새로 작성한 게시글 상세 조회 시 목록으로 버튼 경로 지정하기
+request.getSession().setAttribute("returnListURL", "../list/"+type);
 }else {
 swalIcon="error";
 swalTitle = "게시글 등록 실패";
