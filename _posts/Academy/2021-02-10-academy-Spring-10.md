@@ -1,6 +1,6 @@
 ---
 title: "2020년 02월 10일"
-excerpt: "Spring 8 (게시글 수정-미완성-)"
+excerpt: "Spring 8 (게시글 수정)"
 search: true
 categories: 
   - Academy
@@ -474,7 +474,28 @@ if(result>0) {
             }
             
         }else { // 업로드된 이미지가 없을 경우
+            // deleteImages 배열 : 화면에서 X버튼을 클릭해서 삭제한 배열 인덱스를 표시하는 역할.
+            // -> 배열 요소 중 true가 되어있는 부분은 해당 인덱스(==파일레벨)에 있던 이미지가 삭제되었다는 의미
+            // -->  DB에서 해당 파일 정보를 삭제
             
+            if(deleteImages[i]) {
+                
+                // x버튼으로 삭제가 되었다고 deleteImages에 true로 저장 되어 있지만
+                // 혹시라도 이미지가 없는데 x버튼을 누른걸 수도 있으니 진짜로 이전 이미지가 있었는지 검사하기.
+                for(Attachment old: oldFiles) {
+                    if(old.getFileLevel()==i) {
+                        result = dao.deleteAttachment(old.getFileNo());
+                        
+                        if(result>0) { //삭제 성공 시
+                            // removeFileList : 서버에서 삭제할 파일 정보를 모아둔 리스트
+                            removeFileList.add(old); // 서버 파일 삭제 리스트에 추가 
+                        }else { // 삭제 실패 시
+                            throw new UpdateAttachmentFailException("파일 정보 삭제 실패");
+                            
+                        }
+                    }
+                }
+            }
         }
         
     } // images 반복 접근 for문 종료
@@ -539,6 +560,16 @@ public int insertAttachment(Attachment at) {
 return sqlSession.insert("boardMapper.insertAttachment", at);
 }
 
+
+/** 파일 정보 삭제 DAO
+    * @param fileNo
+    * @return result
+    */
+public int deleteAttachment(int fileNo) {
+    return sqlSession.delete("boardMapper.deleteAttachment", fileNo);
+}
+
+
 ```
 <br><br>
 
@@ -572,6 +603,13 @@ WHERE BOARD_NO = #{boardNo}
 INSERT INTO ATTACHMENT
 VALUES(SEQ_FNO.NEXTVAL, #{filePath}, #{fileName}, #{fileLevel}, #{parentBoardNo})
 </insert>
+
+
+<!-- 파일 정보 삭제   -->
+<delete id="deleteAttachment" parameterType="_int">
+    DELETE FROM ATTACHMENT
+    WHERE FILE_NO = #{fileNo}
+</delete>
 ```
 
 <br><br><br>
