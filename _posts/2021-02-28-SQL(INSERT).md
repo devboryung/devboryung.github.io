@@ -37,6 +37,7 @@ END;
 1부터 4까지 정수 중 랜덤값을 추출해 10을 더한다.<br><br><br>
 
 
+
 - 등록된 데이터 <br>
 ![image](https://user-images.githubusercontent.com/73421820/109422743-4039bd00-7a20-11eb-8210-27eb428b5594.png)
 
