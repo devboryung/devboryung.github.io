@@ -3,7 +3,7 @@ title: "2020년 11월 21일"
 excerpt: "JDBC 과제 : 단군마켓 "
 search: true
 categories: 
-  - Parctice
+  - Practice
   - Academy
 tags: 
   - JAVA

@@ -1,9 +1,9 @@
 ---
 title: "2020년 12월 08일"
-excerpt: "Parctice-2"
+excerpt: "Practice-2"
 search: true
 categories: 
-  - Parctice
+  - Practice
   - Academy
 tags: 
   - Javascript
