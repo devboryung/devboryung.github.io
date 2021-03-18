@@ -3,7 +3,8 @@ title: "2020년 12월 07일"
 excerpt: "Parctice-1"
 search: true
 categories: 
-  - ToyProject
+  - Parctice
+  - Academy
 tags: 
   - Javascript
   - HTML

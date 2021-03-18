@@ -3,7 +3,8 @@ title: "2020년 12월 16일"
 excerpt: "javaScript, jQuery 연습문제"
 search: true
 categories: 
-  - ToyProject
+  - Parctice
+  - Academy
 tags: 
   - jQuery
   - Javascript

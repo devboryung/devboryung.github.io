@@ -3,7 +3,8 @@ title: "2020년 11월 24일"
 excerpt: "JDBC 과제 "
 search: true
 categories: 
-  - ToyProject
+  - Parctice
+  - Academy
 tags: 
   - JAVA
   - JDBC
