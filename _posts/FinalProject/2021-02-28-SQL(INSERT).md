@@ -3,7 +3,7 @@ title: "2020년 02월 28일"
 excerpt: "파이널프로젝트 (SQL-반복 데이터 추가)"
 search: true
 categories: 
-  - Academy
+  - FinalProject
 tags: 
   - SQL
   - sqldeveloper
