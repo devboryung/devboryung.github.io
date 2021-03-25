@@ -133,6 +133,37 @@ div.bg-image-full {
     </form>
 </div>
 ```
+
+<br><br>
+
+- 검색어 유지를 위한 script
+
+```html
+<script>
+    //검색 내용이 있을 경우 검색창에 해당 내용을 작성해두는 기능
+    (function() {
+
+        var searchKey = "${param.sk}";
+
+        var searchValue = "${param.sv}";
+
+        // select의 option을 반복 접근
+        $("select[name=sk]>option").each(function(index, item) {
+            // index : 현재 접근중인 요소의 인덱스
+            // item : 현재 접근중인 요소
+
+            if ($(item).val() == searchKey) {
+                $(item).prop("selected", true);
+            }
+        });
+
+        // 검색어 입력창에 searchValue 값 출력
+        $("input[name=sv]").val(searchValue);
+
+    })();
+```
+
+
 <br>
 > - Form태그로 묶어 버튼 클릭시 제출되게 함.
 > - 숙소명 / 주소를 선택하는 option 태그의 name을 sk로 지정.
