@@ -13,6 +13,8 @@ tags:
 toc: true
 ---
 
+## [숙소] 등록하기
+
 > 숙소 등록화면에서 등록 버튼을 누르면 /room/insert로 요청 됨
 
 - 숙소 등록 Controller
