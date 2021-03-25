@@ -33,7 +33,7 @@ toc: true
 <br><br>
 
 
-- 전달받을 컨트롤러<br>
+- 전달받을 Controller<br>
  room으로 시작되는 모든 주소를 받은 후 contextPath+/room 을 잘라 command 에 저장해  일치하는 주소와 매핑시킨다.
 
 ```java
@@ -359,15 +359,6 @@ AND FILE_LEVEL =0
 
 </c:choose>
 
-<!-- 등록하기 버튼 (업체/관리자에게만 보임)  
-loginMember는 session에 등록되어 있음-->
-<c:if
-  test="${!empty loginMember && loginMember.memberAdmin == 'C' || loginMember.memberAdmin == 'A'}">
-  <div class="row-item">
-    <button type="button" class="btn_class" id="insertRoom"
-      onclick="location.href = '${contextPath}/room/insertForm'">등록하기</button>
-  </div>
-</c:if>
 ```
 
 <br><br>
