@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/Algorism
-title: "Post about Algorism"
+title: "Algorism"
 author_profile: true
 sidebar_main: true
 ---

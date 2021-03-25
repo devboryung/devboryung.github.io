@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/Academy
-title: "Post about Academy"
+title: "Academy"
 author_profile: true
 sidebar_main: true
 ---

@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/FinalProject
-title: "Post about FinalProject"
+title: "FinalProject"
 author_profile: true
 sidebar_main: true
 ---

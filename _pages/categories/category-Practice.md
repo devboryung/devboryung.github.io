@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/Practice
-title: "Post about Practice"
+title: "Practice"
 author_profile: true
 sidebar_main: true
 ---

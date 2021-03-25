@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/SemiProject
-title: "Post about SemiProject"
+title: "SemiProject"
 author_profile: true
 sidebar_main: true
 ---

@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/etc
-title: "Post about etc."
+title: "etc"
 author_profile: true
 sidebar_main: true
 ---
