@@ -419,7 +419,6 @@ public List<Attachment> searchThumbnailList(Connection conn, PageInfo pInfo, Str
             Attachment at = new Attachment();
             at.setFileName(rset.getString("FILE_NAME"));
             at.setRoomNo(rset.getInt("ROOM_NO"));
-            
             fList.add(at);
         }
     }finally {
