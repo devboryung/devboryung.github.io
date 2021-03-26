@@ -14,8 +14,5 @@ toc: true
  
 
 
-<div class="fb-comments" data-href="https://techhan.github.io/about" data-numposts="5"></div>
-  
-
 
 

@@ -4,7 +4,8 @@ main:
     url: "/about/"
   - title: "Category"
     url: "/categories/"
-
+  - title: "Portfolio"
+    url: "/portfolio/"
 #posts:
 #  - title: til
 #    children:
