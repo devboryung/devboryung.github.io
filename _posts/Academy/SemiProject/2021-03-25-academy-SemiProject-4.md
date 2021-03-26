@@ -21,7 +21,7 @@ toc: true
 ![image](https://user-images.githubusercontent.com/73421820/112473858-3b172600-8db2-11eb-8c9a-085e1d9ab956.png)
 
 
-<br/><br/>
+<br><br>
 
 
 > 헤더에서 숙소를 클릭하면 요청되는 주소 
