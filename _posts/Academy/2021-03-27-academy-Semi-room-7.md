@@ -1,6 +1,6 @@
 ---
-title: "세미프로젝트 - 뭉개뭉개(3)"
-excerpt: "[숙소] 검색창"
+title: "[숙소] 검색창"
+excerpt: "세미프로젝트 - 뭉개뭉개"
 search: true
 categories: 
   - SemiProject
