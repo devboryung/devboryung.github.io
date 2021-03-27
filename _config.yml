@@ -29,7 +29,7 @@ words_per_minute         : 200
 comments:
   provider               : "disqus" # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "staticman_v2" "custom"
   disqus:
-    shortname            : devboryung # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+    shortname            : techhan # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
@@ -64,7 +64,7 @@ search_full_content      : true # true, false (default)
 search_provider          : algolia # lunr (default), algolia, google
 algolia:
   application_id         : D1F0JN8WSB # YOUR_APPLICATION_ID
-  index_name             : devboryung # YOUR_INDEX_NAME
+  index_name             : techhan # YOUR_INDEX_NAME
   search_only_api_key    : cc97cb5ce70e54357d7de0189d6b237e # YOUR_SEARCH_ONLY_API_KEY
   powered_by             : # true (default), false
 google:
