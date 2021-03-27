@@ -1,4 +1,4 @@
-7---
+---
 title: "[숙소] 목록 조회"
 excerpt: "세미프로젝트 - 뭉개뭉개"
 search: true
