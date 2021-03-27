@@ -496,53 +496,6 @@ $(".phoneTest").on("input",function(){
 })
 
 
-
-//지역 초기값 지정
-(function(){
-	$("#location1>option").each(function(index,item){
-		if($(item).val() == "${hospital.location1}"){
-			$(item).prop("selected",true);
-		}
-	});
-})();
-
-
-
-// 번호 앞 부분 지정
-(function(){
-		// #phone1의 자식 중 option 태그들을 반복 접근
-	$("#phone1 > option").each(function(index, item){
-		// index : 현재 접근중인 인덱스
-		// item : 현재 접근중인 요소
-		
-			// 현재 접근한 요소에 써져있는 값과 전화번호 배열의 첫번째 값이 같다면
-		if( $(item).text() == "${phone[0]}"){
-			// 현재 접근한 요소에 seleted라는 옵션을 추가
-			$(item).prop("selected",true);
-		}
-	});
-})();	
-
-
-
-//*** 등록된 부대시설  체크하기 ***
-(function(){
-
-// 부대시설에서 문자열을 얻어와 ' , '를 구분자로 하여 분리하기
-var facility = "${hospital.hospFacility}".split(",");
-
-// 체크 박스 요소를 모두 선택하여 반복 접근
-$("input[name='hosp_facility']").each(function(index, item){
-   
-   // interest 배열 내에
-   // 현재 접근 중인 체크박스의 value와 일치하는 요소가 있는지 확인
-   if(facility.indexOf( $(item).val()) != -1 ){
-      $(item).prop("checked", true);
-   }
-});
-})();
-
-
 /* --------------------이미지 첨부---------------  */
 
 //이미지 영역을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
@@ -599,6 +552,55 @@ function LoadImg(value,num){
 		<c:forEach var="file" items="${fList}">
 			$(".hospitalImg").eq(${file.fileLevel}).children("img").attr("src","${contextPath}/resources/image/uploadHospitalImages/${file.fileName}");
 		</c:forEach>
+
+
+
+/* ******초기값 지정***** */
+//지역 초기값 지정
+(function(){
+	$("#location1>option").each(function(index,item){
+		if($(item).val() == "${hospital.location1}"){
+			$(item).prop("selected",true);
+		}
+	});
+})();
+
+
+
+// 번호 앞 부분 지정
+(function(){
+		// #phone1의 자식 중 option 태그들을 반복 접근
+	$("#phone1 > option").each(function(index, item){
+		// index : 현재 접근중인 인덱스
+		// item : 현재 접근중인 요소
+		
+			// 현재 접근한 요소에 써져있는 값과 전화번호 배열의 첫번째 값이 같다면
+		if( $(item).text() == "${phone[0]}"){
+			// 현재 접근한 요소에 seleted라는 옵션을 추가
+			$(item).prop("selected",true);
+		}
+	});
+})();	
+
+
+
+//*** 등록된 부대시설  체크하기 ***
+(function(){
+
+// 부대시설에서 문자열을 얻어와 ' , '를 구분자로 하여 분리하기
+var facility = "${hospital.hospFacility}".split(",");
+
+// 체크 박스 요소를 모두 선택하여 반복 접근
+$("input[name='hosp_facility']").each(function(index, item){
+   
+   // interest 배열 내에
+   // 현재 접근 중인 체크박스의 value와 일치하는 요소가 있는지 확인
+   if(facility.indexOf( $(item).val()) != -1 ){
+      $(item).prop("checked", true);
+   }
+});
+})();
+
 </script>
 ```
 
