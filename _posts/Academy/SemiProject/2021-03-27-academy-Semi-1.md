@@ -1,6 +1,6 @@
 ---
-title: "[숙소] 사용된 VO"
-excerpt: "세미프로젝트 - 뭉개뭉개"
+title: "세미프로젝트 - 뭉개뭉개(1)"
+excerpt: "[숙소] 사용된 VO"
 search: true
 categories: 
   - SemiProject

@@ -1,6 +1,6 @@
 ---
-title: "[숙소] 목록 조회 화면"
-excerpt: "세미프로젝트 - 뭉개뭉개"
+title: "세미프로젝트 - 뭉개뭉개(2)"
+excerpt: "[숙소] 목록 조회 화면"
 search: true
 categories: 
   - SemiProject
