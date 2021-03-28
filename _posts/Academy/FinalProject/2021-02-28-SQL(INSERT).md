@@ -1,6 +1,6 @@
 ---
-title: "2020년 02월 28일"
-excerpt: "파이널프로젝트 (SQL-반복 데이터 추가)"
+title: "SQL-반복 데이터 추가"
+excerpt: "파이널프로젝트 - 싱글벙글"
 search: true
 categories: 
   - FinalProject
