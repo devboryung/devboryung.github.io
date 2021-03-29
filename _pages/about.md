@@ -3,10 +3,7 @@ permalink: /about/
 title: "About"
 excerpt: "About Me"
 search: true
-
 #last_modified_at: 2020-09-22T06:22:00+09:00
-toc: true
-
 ---
 <h2> <p align="center" > Education  </p></h2>
 <h3><strong>**반응형 스마트웹&콘텐츠 개발자 양성과정 (2020.10 ~ 2021.03)**</strong> </h3>

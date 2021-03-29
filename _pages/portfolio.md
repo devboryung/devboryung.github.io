@@ -3,9 +3,6 @@ permalink: /portfolio/
 title: "Portfolio"
 excerpt: "Portfolio"
 search: true
-
-toc: true
-
 ---
 
 

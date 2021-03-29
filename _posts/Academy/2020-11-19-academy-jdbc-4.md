@@ -7,7 +7,6 @@ categories:
 tags: 
   - JAVA
   - JDBC
-  - TIL
 toc: true
 ---
 

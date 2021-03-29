@@ -8,7 +8,6 @@ categories:
 tags: 
   - JAVA
   - JDBC
-  - TIL
   - 단군마켓
   - 보령, 혜윤, 만희 팀플
 toc: true
