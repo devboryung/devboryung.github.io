@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "devboryung blog"
+title                    : "차근차근 나아가는 개발 Blog"
 title_separator          : "-"
 name                     : "devboryung"
 description              : "devboryung's dev task notes."
@@ -103,7 +103,7 @@ analytics:
 # Site Author
 author:
   name             : "devboryung"
-  avatar           : "/assets/img/3.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/img/4.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "One step at a time."
   location         : "Seoul"
   email            : #"imreplay@imreplay.com"
