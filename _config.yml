@@ -103,7 +103,7 @@ analytics:
 # Site Author
 author:
   name             : "devboryung"
-  avatar           : "/assets/img/4.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/img/3.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "One step at a time."
   location         : "Seoul"
   email            : #"imreplay@imreplay.com"
