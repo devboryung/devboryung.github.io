@@ -1,5 +1,5 @@
 ---
-title: "[동물병원] 목록 조회 화면"
+title: "[동물병원] 상세조회"
 excerpt: "세미프로젝트 - 뭉개뭉개"
 search: true
 categories: 
@@ -13,438 +13,511 @@ tags:
 toc: true
 ---
 
-## [동물병원] 목록 조회
+## [동물병원] 상세조회
 
-- 출력 화면 <br>
+- 출력화면 <br>
 
-![image](https://user-images.githubusercontent.com/73421820/112639770-fbb90a00-8e83-11eb-84af-97af1b319175.png)
+![image](https://user-images.githubusercontent.com/73421820/112722751-9bdb6580-8f4e-11eb-87a7-78d8253f85ac.png)
 
 <br><br>
 
-- JSP코드
+> 원하는 동물 병원을 클릭하면 해당 병원의 상세조회 페이지가 열린다.<br>
+  해당 병원에 첨부된 이미지와, 조회수가 나타나며<br>
+  병원 등록 시 체크한 편의시설 및 정보가 출력된다. <br>
+  병원의 상세주소에 따라 지도 API가 출력된다.<br>
+
+
+- 병원 목록에서 상세조회로 넘어가는 script
+
+```java
+$(".numberSelect").on("click", function(){
+	var hospitalNo = $(this).siblings("span").text();
+	
+	var url = "${contextPath}/hospital/view?cp=${pInfo.currentPage}&hospitalNo="+ hospitalNo +"${searchStr}";
+	
+	location.href=url;
+});
+```
+
+<br><br>
+
+- /hospital/view 요청을 전달받는 controller
+
+```java
+else if(command.equals("/view")) {
+    errorMsg = "동물병원 상세 조회 과정에서 오류 발생";
+    
+    int hospitalNo = Integer.parseInt(request.getParameter("hospitalNo"));
+    
+    // 상세조회 비즈니스 로직 수행 후 결과 반환받기
+    Hospital hospital = service.selectHospital(hospitalNo);
+    
+    if(hospital!=null) { // 상세조회 성공 시
+        
+        // 해당 게시글에 포함된 이미지 파일 목록 조회 서비스 호출
+        List<Attachment> fList = service.selectHospitalFiles(hospitalNo);
+        
+        if(!fList.isEmpty()) { // 해당 동물병원 이미지 정보가 DB에 있을 경우
+            request.setAttribute("fList", fList);
+        }
+                                                
+        
+        path ="/WEB-INF/views/hospital/hospitalView.jsp";
+        request.setAttribute("hospital", hospital);
+        view = request.getRequestDispatcher(path);
+        view.forward(request, response);
+    }else {
+        request.getSession().setAttribute("swalIcon", "error");
+        request.getSession().setAttribute("swalTitle", "동물병원 상세 조회 실패");
+        response.sendRedirect("list");
+    }
+    
+}
+```
+
+<br><br>
+
+- 동물 병원 상세조회 Service
+
+```java
+	public Hospital selectHospital(int hospitalNo) throws Exception {
+		Connection conn = getConnection();
+		
+		Hospital hospital = dao.selectHospital(conn, hospitalNo);
+				
+		// 상세조회가 성공하면
+		if(hospital != null) {
+			
+			
+        //조회 수 증가
+		int result = dao.increaseReadCount(conn,hospitalNo);
+			
+		if(result>0) {
+			commit(conn);
+        // 반환되는 병원 데이터에도 조회수를 1 추가해준다.
+			hospital.setViewCount(hospital.getViewCount() +1);
+		}
+			else rollback(conn);
+		}
+		
+		close(conn);
+		return hospital;
+	}
+```
+
+<br><br>
+
+
+- 동물 병원 상세조회 DAO
+
+```java
+public Hospital selectHospital(Connection conn, int hospitalNo) throws Exception {
+    Hospital hospital = null;
+    
+    String query = prop.getProperty("selectHospital");
+    
+    try {
+        pstmt=conn.prepareStatement(query);
+        pstmt.setInt(1, hospitalNo);
+        rset = pstmt.executeQuery();
+        
+        if(rset.next()) {
+            hospital = new Hospital();
+            hospital.setHospNm(rset.getString("HOSP_NM"));
+            hospital.setLocation1(rset.getString("LOCATION1"));
+            hospital.setLocation2(rset.getString("LOCATION2"));
+            hospital.setPhone(rset.getString("PHONE"));
+            hospital.setOpeningTime(rset.getString("OPENING_TIME"));
+            hospital.setClosingTime(rset.getString("CLOSING_TIME"));
+            hospital.setHospInfo(rset.getString("HOSP_INFO"));
+            hospital.setViewCount(rset.getInt("VIEW_COUNT"));
+            hospital.setHospFacility(rset.getString("HOSP_FACILITY"));
+            
+        }
+    }finally {
+        close(rset);
+        close(pstmt);
+    }
+    return hospital;
+}
+```
+
+<br><br>
+
+- 동물 병원 상세조회 sql문
+
+```sql
+<entry key="selectHospitalList">
+SELECT * FROM 
+	(SELECT ROWNUM RNUM, H.*
+	 FROM (SELECT * FROM HOSPITAL WHERE HOSP_DEL_FL='N' ORDER BY HOSP_NO DESC)H)
+WHERE  RNUM BETWEEN ? AND ?
+</entry>
+```
+<br><br>
+
+- 해당 동물 병원 조회수 증가 DAO
+
+```java
+public int increaseReadCount(Connection conn, int hospitalNo)throws Exception {
+    int result =0;
+    
+    String query = prop.getProperty("increaseReadCount");
+    
+    try {
+        pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, hospitalNo);
+        result = pstmt.executeUpdate();
+    }finally {
+        close(pstmt);
+    }
+    
+    return result;
+}
+```
+
+<br><br>
+
+- 조회수 증가 sql문
+
+```sql
+<entry key="increaseReadCount">
+UPDATE HOSPITAL SET
+VIEW_COUNT = VIEW_COUNT +1
+WHERE HOSP_NO = ?
+</entry>
+```
+
+<br><br>
+
+
+- 해당 동물 병원의 첨부 파일 조회 Service
+
+```java
+public List<Attachment> selectHospitalFiles(int hospitalNo) throws Exception {
+    Connection conn = getConnection();
+    
+    List<Attachment> fList = dao.selectHospitalFiles(conn,hospitalNo);
+    
+    close(conn);
+            
+    return fList;
+}
+```
+
+<br><br>
+
+- 해당 동물 병원의 첨부 파일 조회 DAO
+
+```java
+public List<Attachment> selectHospitalFiles(Connection conn, int hospitalNo) throws Exception {
+    List<Attachment> fList=null;
+    String query = prop.getProperty("selectHospitalFiles");
+    
+    try {
+        pstmt= conn.prepareStatement(query);
+        pstmt.setInt(1, hospitalNo);
+        
+        rset = pstmt.executeQuery();
+        
+        fList = new ArrayList<Attachment>();
+        
+        while(rset.next()) {
+            Attachment at = new Attachment(
+                    rset.getInt("FILE_NO"),
+                    rset.getString("IMG_NAME"),
+                    rset.getInt("IMG_LEVEL"));
+            
+            at.setFilePath(rset.getString("IMG_PATH"));
+            
+            fList.add(at);
+        }
+        
+    }finally{
+        close(rset);
+        close(pstmt);
+    }
+    return fList;
+}
+```
+
+<br><br>
+
+- 첨부파일 조회 sql문
+
+```sql
+<entry key="selectHospitalFiles">
+SELECT FILE_NO, IMG_NAME, IMG_LEVEL, IMG_PATH
+FROM HOSPITAL_IMG
+WHERE HOSP_NO = ?
+ORDER BY IMG_LEVEL
+</entry>
+```
+
+<br><br>
+
+
+- 상세조회 JSP
 
 ```html
-<jsp:include page="/WEB-INF/views/common/otherHeader.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/otherHeader.jsp"/>
+
 <div class="wrapper">
-    <!-- 검색창 -->
-    <div class="row-item" style="margin-bottom: 90px;">
-        <form action="${contextPath }/hospital/search" method="GET"
-            id="searchForm">
-            <div class="bg-image-full"
-                style="background-image: url('https://cdn.pixabay.com/photo/2016/01/19/17/41/friends-1149841_960_720.jpg');">
-
-                <div class="search">
-                    <select name="sk" id="searchOption">
-                        <option value="hospitalName">병원명</option>
-                        <option value="location">주소</option>
-                    </select> <input type="text" name="sv" class="searchBar"
-                        placeholder="검색어를 입력해 주세요." autocomplete="off" maxlength='15'>
-                    <button class="searchBar btn_class" id="searchBtn">
-                        <img src="${contextPath}/resources/image/icon/searchIcon.png"
-                            id="searchIcon" style="display: inline-block; margin: 0 auto;">
-                    </button>
-                </div>
-
-            </div>
-        </form>
-    </div>
-
-    <!-- 동물 병원 리스트 -->
-
+    <!-- 이미지 출력 -->
     <c:choose>
-        <c:when test="${empty hList }">
-            <!-- hList가 비어있을 때 : 게시글 목록 조회에서 조회되지 않았을 때  -->
-            <div class="row-item">
-                <div style="text-align: center; font-size: 18px;">등록된 병원이
-                    없습니다.</div>
+        <c:when test="${!empty fList }">
+            <div class="carousel slide boardImgArea imageArea" id="hospital-image">
+                
+                <!-- 이미지 선택 버튼 -->
+                <ol class="carousel-indicators ">
+                    <c:forEach var="file" items="${fList}" varStatus="vs">
+                        
+                        <li data-slide-to="${vs.index }" data-target="#hospital-image"  
+                            <c:if test="${vs.first}"> class="active" </c:if> >
+                        </li>
+                    </c:forEach>
+                </ol>
+                
+                
+                <!-- 출력되는 이미지 -->
+                <div class="carousel-inner ">
+                    <c:forEach var="file" items="${fList}" varStatus="vs">
+                        <div class="carousel-item imageArea <c:if test="${vs.first}">active</c:if>">
+                        <img class="d-block w-100 imageArea boardImg" id="${file.fileNo}" 
+                            src="${contextPath}/resources/image/uploadHospitalImages/${file.fileName}">
+                        </div>
+                    </c:forEach>
+                
+                </div> 
+                
+                <!-- 좌우 화살표 -->
+                <a class="carousel-control-prev" href="#hospital-image" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span>
+                </a> 
+                <a class="carousel-control-next" href="#hospital-image" data-slide="next">
+                    <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span>
+                </a>
             </div>
         </c:when>
-
+        
         <c:otherwise>
-            <!-- 조회된 게시글 목록이 있을 때  -->
-            <c:forEach var="hospital" items="${hList}">
-                <!-- hList에서 하나씩 꺼내와 hospital에 담는다.  -->
-                <div class="row-item " style="margin-bottom: 40px;">
-                    <div class="thumbnail">
-                        <div class="thumbnail_img">
-                            <!------------------------ 썸네일 출력  --------------------->
-                            <c:set var="flag" value="true" />
-                            <c:forEach var="thumbnail" items="${fList }">
-                                <c:if test="${hospital.hospNo == thumbnail.hospNo }">
-                                    <%-- 현재 출력하려는 게시글 번호와 썸네일 목록 중 부모게시글번호가 일치하는 썸네일 정보가 있다면  --%>
-                                    <img class="hospital_img"
-                                        src="${contextPath }/resources/image/uploadHospitalImages/${thumbnail.fileName}">
-                                    <c:set var="flag" value="false" />
-                                </c:if>
-                            </c:forEach>
-
-                            <c:if test="${flag == 'true'}">
-                                <img class="hospital_img"
-                                    src="${contextPath }/resources/image/icon/nonImage.png">
-                            </c:if>
-
-                            <!-------------------------------------------------------->
-
-                        </div>
-                        <div class="thumbnail_info numberSelect" style="cursor: pointer;">
-                            <div class="hospital_info">
-                                <span id="hospital_name"> ${hospital.hospNm }</span>
-                            </div>
-                            <div class="hospital_info">
-                                <img class="icon"
-                                    src="${contextPath}/resources/image/icon/site.png">주소 :
-                                ${hospital.location2 }
-                            </div>
-                            <div class="hospital_info">
-                                <img class="icon"
-                                    src="${contextPath}/resources/image/icon/phone.png">연락처
-                                : ${hospital.phone }
-                            </div>
-                            <div class="hospital_info">
-                                <img class="icon"
-                                    src="${contextPath}/resources/image/icon/clock.png">영업시간
-                                : ${hospital.openingTime } ~ ${hospital.closingTime }
-                            </div>
-                        </div>
-                        <span style="visibility: hidden">${hospital.hospNo }</span>
-                    </div>
-                </div>
-            </c:forEach>
+            <div class="imageArea" >
+                <img  src="${contextPath}/resources/image/icon/nonImage.png">
+            </div>
         </c:otherwise>
     </c:choose>
-    <!-- 한 페이지 6개씩 보이기 -->
+    
+
+    <!-- 동물병원 이름 -->
+    <div class="row-item" >
+        <p id="hospitalName">${hospital.hospNm }</p>
+    </div> 
+
+    <!-- 조회수 -->
+    <div class="row-item">
+        <div class="viewInfo iconArea" style="margin-left: 1020px;">
+            <span><img src="${contextPath}/resources/image/icon/view.png" class="icon" style="margin-right: 0px;"></span>
+            <div class="count">${hospital.viewCount }</div><!-- 최대 999,999 -->
+        </div>
+    </div>
+    
+    <!-- 동물병원 주소 -->
+    <div class="row-item" >
+        <span><img class="icon" src="${contextPath}/resources/image/icon/site.png"></span>
+        <span id="hospitalAddress">${hospital.location2 } </span>
+    </div> 
+    
+    
+    
+
+    <!-- 동물병원 전화번호 -->
+    <div class="row-item" >
+        <span><img class="icon" src="${contextPath}/resources/image/icon/phone.png"></span>
+        <span id="hospitalPhone">전화번호 : ${hospital.phone } </span>
+    </div> 
+
+    <!-- 동물병원 운영시간 -->
+    <div class="row-item" >
+        <span><img class="icon" src="${contextPath}/resources/image/icon/clock.png"></span>
+        <span id="hospitalHours">운영시간 : ${hospital.openingTime } ~ ${hospital.closingTime }</span>
+    </div> 
+
+    <hr>
 
 
-    <!-- 등록하기 버튼  (관리자로 로그인 했을 때만 보인다.-->
-    <c:if test="${!empty loginMember && loginMember.memberAdmin == 'A' }">
-        <div class="row-item">
-            <button type="button" class="btn_class" id="insertHospital"
-                onclick="location.href = '${contextPath}/hospital/insertForm'">등록하기</button>
+
+
+    <!-- 부대시설 출력  -->
+    <%-- 부대시설을  구분자를 이용하여 분리된 배열 형태로 저장 --%>
+    <c:set var="facilityArr" value="${fn:split(hospital.hospFacility,',') }"/>
+    <!-- ${facility[0]}  : WiFi  -->
+
+    <div class="row-item" style="margin:0;">
+    
+    <c:forEach var="facility" items="${facilityArr }">
+        <c:choose>
+                <c:when test="${facility == 'WiFi' }">
+                    <div class="facility">
+                        <div class="icon_area">
+                            <img class="facility_icon" src="${contextPath}/resources/image/icon/WiFi.png">
+                        </div>
+                        <div class="text_area"> 
+                            WiFi
+                        </div>
+                    </div>
+                </c:when>
+                
+                <c:when test="${facility == '주차' }">    
+                    <div class="facility">
+                        <div class="icon_area">
+                            <img class="facility_icon" src="${contextPath}/resources/image/icon/park.png">
+                        </div>
+                        <div class="text_area"> 
+                            주차
+                        </div>
+                    </div>
+                </c:when>    
+                
+                <c:when test="${facility == '예약' }">    
+                        <div class="facility">
+                            <div class="icon_area">
+                                <img class="facility_icon" src="${contextPath}/resources/image/icon/appointment.png">
+                            </div>
+                            <div class="text_area"> 
+                                예약
+                            </div>
+                        </div>
+                    
+                    </c:when>   
+                
+                <c:when test="${facility == '24시간' }">      
+                    <div class="facility">
+                        <div class="icon_area">
+                            <img class="facility_icon" src="${contextPath}/resources/image/icon/24hour.png">
+                        </div>
+                        <div class="text_area"> 
+                            24시
+                        </div>
+                    </div>
+                </c:when>    
+            </c:choose>
+        </c:forEach> 
+    </div> 
+    
+    <hr style="margin-bottom: 15px;">
+
+    <div class="row-item" >
+            <span class="highlighter">병원 정보</span>
+        <div style="font-size:15px;">
+                ${hospital.hospInfo }
+        </div>
+    </div>
+    <hr style="margin-bottom: 15px;">
+
+
+    <div class="row-item">
+        <span class="highlighter">상세위치</span>
+        <div id="map">
+        </div>
+    </div>
+    
+
+
+<div class="row-item">
+    <c:choose>
+        <c:when test="${!empty param.sk && !empty param.sv }">
+            <c:url var="goToList" value="../hospital/search">
+                <!--../ : 상위 주소로 이동 <상대경로>  -->
+                <c:param name="cp">${param.cp }</c:param>
+                <c:param name="sk">${param.sk }</c:param>
+                <c:param name="sv">${param.sv }</c:param>
+            </c:url>
+        </c:when>
+        <c:otherwise>
+            <c:url var="goToList" value="/hospital/list">
+                <c:param name="cp">${param.cp}</c:param>
+            </c:url>
+        </c:otherwise>	
+    </c:choose>
+    <a href="${goToList }" class="btn_class" id="back">돌아가기</a>
+</div>
+        <!-- 관리자만 보이는 버튼 -->
+    <c:if test="${!empty loginMember && loginMember.memberAdmin == 'A'   }">
+        <div class="row-item" style="margin-top:50px;margin-bottom: 50px;">
+            <div class="btn_item">
+                
+                <!-- 	수정 버튼 클릭 -> 수정 화면 -> 수정 성공 -> 상세조회 화면
+                검색 -> 검색목록 -> 상세조회 -> 수정 버튼 클릭 -> 수정화면 -> 수정 성공 -> 상세조회 화면
+                    -->	 
+                <%-- 게시글 수정 후 상세조회 페이지로 돌아오기 위한 url 조합 --%>
+                    <c:if test="${!empty param.sv && !empty param.sk }">
+                        <%-- 검색을 통해 들어온 상세 조회 페이지인 경우 --%>
+                    <c:set var="searchStr" value="&sk=${param.sk}&sv=${param.sv}"/>
+                    </c:if>
+                <a href="updateForm?cp=${param.cp}&hospitalNo=${param.hospitalNo}${searchStr}" 
+                            class= "btn_class"  id="updateBtn">수정</a>
+                <button class= "btn_class"  id="deleteBtn" type="button">삭제</button>
         </div>
     </c:if>
 
-
-    <%---------------------- Pagination ----------------------%>
-    <%-- 페이징 처리 주소를 쉽게 사용할 수 있도록 미리 변수에 저장 --%>
-    <c:choose>
-        <%-- 검색 내용이 파라미터에 존재할 때 == 검색을 통해 만들어진 페이지인가? --%>
-        <c:when test="${!empty param.sk && !empty param.sv }">
-            <c:url var="pageUrl" value="/hospital/search" />
-
-            <%-- 쿼리스트링으로 사용할 내용을 변수에 저장함. --%>
-            <c:set var="searchStr" value="&sk=${param.sk }&sv=${param.sv }" />
-        </c:when>
-        <c:otherwise>
-            <c:url var="pageUrl" value="/hospital/list" />
-        </c:otherwise>
-    </c:choose>
+</div><!-- wrapper -->
 
 
-    <!-- 화살표에 들어갈 주소를 변수로 생성 -->
-    <%-- 검색을 안 했을 때 : /hospital/list?cp=1 
-                검색을 했을 때 : /search?cp=1&location=서울&sv=49   --%>
-    <c:set var="firstPage" value="${pageUrl}?cp=1${searchStr }" />
-    <c:set var="lastPage"
-        value="${pageUrl}?cp=${pInfo.maxPage}${searchStr }" />
-
-    <%-- EL을 이용한 숫자 연산의 단점 : 연산이 자료형에 영향을 받지 않는다. --%>
-    <%-- <fmt:parseNumber> : 숫자 형태를 지정하여 변수 선언 
-        integerOnly="true" : 정수로만 숫자 표현 (소수점 버림)
-        --%>
-
-
-    <fmt:parseNumber var="c1" value="${(pInfo.currentPage - 1)/10}"
-        integerOnly="true" />
-    <fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true" />
-    <c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr }" />
-    <!-- /hospital/list/do?cp=10  -->
-
-    <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9)/10}"
-        integerOnly="true" />
-    <fmt:parseNumber var="next" value="${c2 * 10 + 1}" integerOnly="true" />
-    <c:set var="nextPage" value="${pageUrl}?cp=${next}${searchStr }" />
-
-
-
-
-
-    <!-- 페이징 -->
-    <div class="paging">
-        <nav aria-label="Page navigation example">
-            <ul id="pagingBtn"
-                class="pagination pagination-sm justify-content-center">
-
-                <%-- 현재 페이지가 10페이지 초과인 경우 --%>
-                <c:if test="${pInfo.currentPage>10}">
-                    <!-- 첫 페이지로 이동(<<) -->
-                    <li class="page-item"><a class="page-link"
-                        href="${firstPage}">&lt;&lt;</a></li>
-
-                    <!-- 이전 페이지로 이동(<)  -->
-                    <li class="page-item"><a class="page-link" href="${prevPage}">&lt;</a></li>
-                </c:if>
-
-                <!-- 페이지 목록  -->
-                <c:forEach var="page" begin="${pInfo.startPage}"
-                    end="${pInfo.endPage}">
-                    <c:choose>
-                        <c:when test="${pInfo.currentPage == page }">
-                            <!-- 현재 보고 있는 페이지는 클릭이 안 되게 한다.  -->
-                            <li class="page-item"><a class="page-link"
-                                style="color: orange;">${page }</a></li>
-                        </c:when>
-
-                        <c:otherwise>
-                            <li class="page-item"><a class="page-link"
-                                href="${pageUrl }?cp=${page}${searchStr}">${page}</a></li>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-
-                <%-- 다음 페이지가 마지막 페이지 이하인 경우 --%>
-                <c:if test="${next <= pInfo.maxPage }">
-                    <!-- 다음 페이지로 이동  -->
-                    <li class="page-item"><a class="page-link"
-                        href="${nextPage }">&gt;</a></li>
-                    <li class="page-item"><a class="page-link"
-                        href="${lastPage }">&gt;&gt;</a></li>
-                </c:if>
-            </ul>
-        </nav>
-    </div>
-</div>
-
-<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 ```
 
 
 <br><br>
 
-- CSS
+- 카카오 지도 API
 
-```css
-/* ---------------------동물병원 조회 페이지-----------------------------------------------  */
-* {
-	font-family: 'Noto Sans KR', sans-serif;
-}
+```java
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=앱키&libraries=services,clusterer,drawing">
+</script>
 
-.wrapper {
-	width: 1100px;
-	box-sizing: border-box;
-	margin: 0 auto;
-	/*     border : 1px solid sienna */
-}
 
-.hospital_list {
-	width: 60%;
-	margin: auto;
-	/*     border : 1px solid gold */
-}
 
-.row-item {
-	width: 100%;
-	box-sizing: border-box;
-}
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level : 3
+    // 지도의 확대 레벨
+    };
 
-/* ---------------------------검색창------------------------- */
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
 
-/* 배경화면  */
-.bg-image-full {
-	background: no-repeat center center scroll;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	background-size: cover;
-	-o-background-size: cover;
-}
+    // 주소로 좌표를 검색합니다
+    geocoder.addressSearch('${hospital.location2 }',function(result, status){
+        // 정상적으로 검색이 완료됐으면 
+        if (status === kakao.maps.services.Status.OK) {
 
-div.bg-image-full {
-	height: 400px;
-	text-align: center;
-	border-radius: 15px;
-	margin-bottom: 20px;
-}
+            var coords = new kakao.maps.LatLng(result[0].y,
+                    result[0].x);
 
-/* 검색 div */
-.search {
-	width: 38%;
-	height: 50px;
-	margin: auto;
-	margin-top: 20px;
-	border-right-width: 0px;
-	position: relative;
-	padding-top: 20px;
-	box-sizing: border-box;
-}
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                map : map,
+                position : coords
+            });
 
-/* 검색 옵션창 */
-#searchOption {
-	display: inline-block;
-	position: absolute;
-	left: 2%;
-	height: 100%;
-	width: 25%;
-	font-size: 15px;
-	font-weight: 500;
-	padding: 1em;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 15px 0 0 15px;
-	border: none;
-}
-/* 옵션 창 선택시 테두리 없애기 */
-#searchOption:focus {
-	outline: none;
-}
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            var infowindow = new kakao.maps.InfoWindow(
+                    {
+                        content : '<div style="font-size: 13px;width:150px;text-align:center;padding:6px 0;">${hospital.hospNm }</div>'
+                    });
+            infowindow.open(map, marker);
 
-/* 검색어 입력 창  */
-.searchBar {
-	display: inline-block;
-	position: absolute;
-	transform: translate(-31%);
-	width: 75%;
-	height: 98%;
-	border: none;
-	outline: none;
-	font-size: 16px;
-	background-color: rgba(255, 255, 255, 0.6);
-	border-radius: 0 15px 15px 0;
-	padding-left: 10px;
-}
-
-/* 검색 버튼 */
-#searchBtn {
-	height: 100%;
-	position: absolute;
-	left: 90%;
-	width: 60px;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 0.1);
-	cursor: pointer;
-	border: none;
-	outline: none;
-}
-
-/* 돋보기 아이콘  */
-#searchIcon {
-	position: absolute;
-	left: 20px;
-	top: 12px;
-	width: 25px;
-	height: 25px;
-	border: none;
-}
-
-/* 버튼 */
-.btn_class {
-	border: 1px solid #8bd2d6;
-	background-color: #8bd2d6;
-	cursor: pointer;
-	outline: none;
-}
-
-/* ----------------------지역 선택------------------------------- */
-.locationSelect {
-	margin: 0 0 30px 85%;
-}
-
-.locationNm {
-	background-color: fff;
-	font-size: 16px;
-	width: 75px;
-	border: 3px solid #8bd2d6;
-	border-radius: 5px;
-}
-
-/* --------------------동물 병원 리스트--------------------------- */
-.thumbnail {
-	/*   background-color : burlywood; */
-	width: 100%;
-	height: 200px;
-	margin-bottom: 15px;
-	box-sizing: border-box;
-	display: table;
-}
-
-.thumbnail_img {
-	/*     border: 1px solid red; */
-	height: 100%;
-	width: 30%;
-	display: inline-block;
-	box-sizing: border-box;
-	display: table-cell;
-	table-layout: fixed;
-	vertical-align: middle;
-}
-
-.hospital_img {
-	width: 300px;
-	height: 200px;
-}
-
-.thumbnail_info {
-	/*    border: 1px solid green; */
-	height: 100%;
-	width: 60%;
-	display: inline-block;
-	box-sizing: border-box;
-	display: table-cell;
-	table-layout: fixed;
-	vertical-align: middle;
-}
-
-.hospital_info {
-	font-size: 13px;
-	margin: 0;
-}
-
-#hospital_name {
-	font-size: 25px;
-	font-weight: bold;
-}
-
-#hospital_name:hover {
-	color: #000;
-}
-
-.icon {
-	width: 10px;
-	height: 10px;
-	margin-right: 10px;
-}
-
-/* ------------------------글쓰기버튼------------------------------- */
-#insertHospital {
-	width: 100px;
-	height: 40px;
-	margin: 40px 0 0 90%;
-	line-height: 20px;
-	border-radius: 5px;
-	color: #fff;
-	font-size: 17px;
-}
-
-.btn_class:hover {
-	background-color: #17a2b8;
-}
-
-/*----------------------페이징(부트스트랩)------------------------  */
-.paging {
-	margin-top: 100px;
-}
-
-.page-item>a {
-	color: black;
-	text-decoration: none;
-}
-
-.page-item>a:hover {
-	color: orange;
-}
-
-/* 상세페이지 이동 커서  */
-.numberSelect {
-	cursor: pointer;
-}
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+        } else {
+            console.log(result);
+        }
+    });
+</script>
 ```
 
 <br><br>
-

@@ -1,5 +1,5 @@
 ---
-title: "[숙소] 목록 조회"
+title: "[숙소] 등록하기 -2"
 excerpt: "세미프로젝트 - 뭉개뭉개"
 search: true
 categories: 
@@ -13,352 +13,376 @@ tags:
 toc: true
 ---
 
+## [숙소] 등록하기
 
-## [숙소] 목록 조회
+> 숙소 등록화면에서 등록 버튼을 누르면 /room/insert로 요청 됨
 
-- 출력 화면
-
-![image](https://user-images.githubusercontent.com/73421820/112473858-3b172600-8db2-11eb-8c9a-085e1d9ab956.png)
-
-
-<br><br>
-
-
-> 헤더에서 숙소를 클릭하면 요청되는 주소 
-
-```html
-<li><a href="${contextPath }/room/list" class="nav-items" id="nav-room">숙소</a></li>
-```
-
-<br><br>
-
-
-- 전달받을 Controller<br>
- room으로 시작되는 모든 주소를 받은 후 contextPath+/room 을 잘라 command 에 저장해  일치하는 주소와 매핑시킨다.
+- 숙소 등록 Controller
 
 ```java
-@WebServlet("/room/*")
-public class RoomController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-   
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = request.getRequestURI(); //전체 요청 주소
-				
-		String contextPath = request.getContextPath();
-		
-		String command = uri.substring((contextPath+"/room").length());
-		
-		// 컨트롤러 내에서 공용으로 사용할 변수 미리 선언
-		
-		String path = null; // forward 또는 redirect 경로를 저장할 변수
-		RequestDispatcher view = null; // 요청 위임 객체
-		
-		// sweet alert 메세지 전달하는 용도
-		String swalIcon = null;
-		String swalTitle = null;
-		String swalText = null;
-		String errorMsg = null;
-    try {
-    RoomService service = new RoomService();
+else if(command.equals("/insert")) {
+    errorMsg = "숙소 등록 과정에서 오류 발생";
     
-    // 현재 페이지를 얻어와 커리스트링으로 사용할 것.
-    // 쿼리스트링은 서버측에서 파라미터로 인식된다.
-    String cp = request.getParameter("cp");
-    // CurrentPage 사용 이유
-    // 1) 페이징 처리 시 계산에 필요한 값이기 때문
-    // 2) 효율적인 UI/UX를 제공하기 위해서 사용한다(상세조회/북마크...)
-    // 처음엔 얻어 올 값이 없어서 null 이 된다.
-```
-<br><br>
-
-
-- 숙소 목록 조회 컨트롤러
-
-```java
-if(command.equals("/list")) {
-  
-  errorMsg = "숙소 목록 조회 중 오류 발생";
-  
-  
-  // 1) 페이징 처리를 위한 값 계산 Service호출
-  PageInfo pInfo = service.getPageInfo(cp);
-  
-  // 2) 숙소 목록 조회 비즈니스 로직 수행
-  List<Room> rList = service.selectRoomList(pInfo);
-  
-  // ************* 썸네일추가 *************
-  if(rList!=null) {
-    List<Attachment> fList = service.selectThumbnailList(pInfo);
+    // form태그에서 encType이 multipart/form-data형식이면
+    // 기존에 사용하던 request  객체로 파라미터를 얻어올 수 없다.
     
-    if(!fList.isEmpty()) {
-      request.setAttribute("fList", fList);
-    }
-  }
-
-  // rList, pInfo, fList를 jsp로 가져가 화면에 뿌린다.
-  path = "/WEB-INF/views/room/roomList.jsp";
-  request.setAttribute("rList", rList);
-  request.setAttribute("pInfo", pInfo);
-  view = request.getRequestDispatcher(path);
-  view.forward(request, response);
-  
-}
-```
-
-<br><br>
-
-
-- 페이징 처리를 위한 service
-
-```java
-public PageInfo getPageInfo(String cp) throws Exception {
-  Connection conn = getConnection();
-  
-  // cp가 null일 경우 1, 아니면 cp를 얻어옴.
-  int currentPage = cp == null ? 1 : Integer.parseInt(cp);
-  
-  // System.out.println(currentPage); 숙소 화면 들어가자마자 1 출력 됨
-  
-  // DB에서 전체 게시글 수를 조회하여 반환받기
-  int listCount = dao.getListCount(conn);
-  
-  close(conn);
-  
-  return new PageInfo(currentPage, listCount);
-}
-```
-<br><br>
-
-- 전체 게시글 수를 조회하여 반환받는 DAO
-
-```java
-public int getListCount(Connection conn) throws Exception {
-  int listCount =0;
-  String query = prop.getProperty("getListCount");
-  
-  try {
-    stmt = conn.createStatement();
-    rset = stmt.executeQuery(query);
+    // 1. MultipartRequest 객체 생성하기
+    // 1-1. 전송 파일 용량 지정(byte단위)
+    int maxSize = 20* 1024 * 1024; // 20MB
     
-    while(rset.next()){
-      listCount = rset.getInt(1);
-    }
-  }finally {
-    close(rset);
-    close(stmt);
-  }
-  
-  return listCount;
-}
-```
-<br><br>
-
-- 전체 게시글 수를 조회 시 수행되는 sql문
-
-```sql
-<entry key="getListCount">
-SELECT COUNT(*) FROM ROOM
-WHERE ROOM_DEL_FL = 'N'
-</entry>
-```
-
-
-<br><br>
-
-
-- 숙소 목록 조회 Service
-
-```java
-public List<Room> selectRoomList(PageInfo pInfo) throws Exception {
-  Connection conn = getConnection();
-  
-  List<Room> rList = dao.selectRoomList(conn,pInfo);
-  
-  close(conn);
-  return rList;
-}
-```
-<br><br>
-
-
-- 숙소 목록 조회 DAO
-
-```java
-public List<Room> selectRoomList(Connection conn, PageInfo pInfo) throws Exception {
-  List<Room> rList = null;
-  String query = prop.getProperty("selectRoomList");
-  
-  try {
-    // SQL 구문 조건절에 대입할 변수 생성
-    int startRow = (pInfo.getCurrentPage()-1) * pInfo.getLimit()+1;
-    int endRow = startRow + pInfo.getLimit()-1;
-    // 7개의 글 중에서 1페이지에 해당하는 글을 가져옴 : 7~2번째의 글만 가져오게 됨.
+    // 1-2. 서버에 업로드된 파일을 저장할 경로 지정
+    String root = request.getSession().getServletContext().getRealPath("/");
     
-    pstmt = conn.prepareStatement(query);
-    pstmt.setInt(1, startRow);
-    pstmt.setInt(2,  endRow);
+    String filePath = root + "resources/image/uploadRoomImages/";
     
-    rset = pstmt.executeQuery();
+    // 1-3. 파일명 변환을 위한 클래스 작성 (Attachment.java)
     
-    rList = new ArrayList<Room>();
+    // 1-4. MultipartRequest 객체 생성 (객체 생성과 동시에 파라미터로 넘어온 내용 중 파일이 서버에 바로 저장됨)
+    MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
     
-    while(rset.next()) {
-      Room room = new Room(rset.getInt("ROOM_NO"), 
-          rset.getString("ROOM_NAME"), rset.getString("LOCATION2"));
-      rList.add(room);
-    }
-  }finally {
-    close(rset);
-    close(pstmt);
-  }
-  
-  return rList;
-}
-```
-<br><br>
-
-- 숙소 목록 조회 시 수행되는 sql문
-
-```sql
-<entry key="selectRoomList">
-SELECT * FROM
-	(SELECT ROWNUM RNUM, R.*
-	 FROM (SELECT * FROM ROOM WHERE ROOM_DEL_FL = 'N' ORDER BY ROOM_NO DESC)R)
-WHERE RNUM BETWEEN ? AND ?
-</entry>
-```
-
-<br><br>
-
-- 게시글에 일치하는 썸네일 목록 조회 Service
-
-```java
-public List<Attachment> selectThumbnailList(PageInfo pInfo) throws Exception {
-  Connection conn = getConnection();
-  
-  List<Attachment> fList = dao.selectThumbnailList(conn,pInfo);
-  
-  close(conn);
-  
-  return fList;
-}
-```
-
-<br><br>
-
-
-- 게시글에 일치하는 썸네일 목록 조회 DAO
-
-```java
-public List<Attachment> selectThumbnailList(Connection conn, PageInfo pInfo) throws Exception {
-  List<Attachment> fList =null;
-  
-  String query = prop.getProperty("selectThumbnailList");
-  
-  // 위치 홀더에 들어갈 시작 행, 끝 행번호 계산
-        int startRow = (pInfo.getCurrentPage() -1) * pInfo.getLimit() +1;
-        int endRow = startRow + pInfo.getLimit()-1;
-      try {		
-        pstmt = conn.prepareStatement(query);
-        pstmt.setInt(1, startRow);
-        pstmt.setInt(2, endRow);
+    
+    // 2. 생성한 객체에서 파일 정보만을 얻어와 별도의 List에 모두 저장
+    
+    // 2-1. 파일 정보를 모두 저장할 List 객체 생성
+    List<Attachment> fList= new ArrayList<Attachment>();
+    
+    // 2-2. 업로드된 파일의 name 모두 받기
+    Enumeration<String> files = multiRequest.getFileNames();
+    
+    
+    // 2-3. 얻어온 Enumeration 객체에 요소를 하나씩 반복 접근, 
+    // 업로드된 파일 정보를 Attachment객체에 저장 후 iList에 추가
+    
+    while(files.hasMoreElements()) { //다음 요소가 있다면
+        String name = files.nextElement(); //img0
         
-        rset = pstmt.executeQuery();
-        
-        fList = new ArrayList<Attachment>();
-        
-        while(rset.next()) {
-          Attachment at = new Attachment();
-          at.setFileName(rset.getString("FILE_NAME"));
-          at.setRoomNo(rset.getInt("ROOM_NO"));
+        // 제출받은 file태그 요소 중 업로드된 파일이 있을 경우
+        if(multiRequest.getFilesystemName(name)!=null) {
+            // Attachment 객체에 파일 정보 저장
+            Attachment temp = new Attachment();
+            
+            temp.setFileName(multiRequest.getFilesystemName(name));
+            temp.setFilePath(filePath);
+            
 
-          
-          fList.add(at);
+            // name 속성에 따라 fileLevel 지정
+            int fileLevel =0;
+            
+            switch(name) {
+            case "img0" : fileLevel =0; break;
+            case "img1" : fileLevel =1; break;
+            case "img2" : fileLevel =2; break;
+            case "img3" : fileLevel =3; break;
+            case "img4" : fileLevel =4; break;
+            case "img5" : fileLevel =5; break;
+            
+            }
+            temp.setFileLevel(fileLevel);
+            
+            // fList에 추가
+            fList.add(temp);
         }
-      }finally {
-        close(rset);
-        close(pstmt);
-      }
-  
-  return fList;
+    }// end while
+    
+    // 3.파일정보를 제외한 게시글 정보를 얻어와 저장하기
+    String roomName = multiRequest.getParameter("roomName");
+    String location2 = multiRequest.getParameter("location2");
+    String phone = multiRequest.getParameter("phone");
+    String checkin = multiRequest.getParameter("checkin");
+    String checkout = multiRequest.getParameter("checkout");
+    String[] facilityArr = multiRequest.getParameterValues("facility");
+    String facility = null;
+    if(facilityArr!=null) { // 숙소 시설 배열이 비어있지 않다면.
+        facility= String.join(",", facilityArr);
+    }
+    String[] dogArr = multiRequest.getParameterValues("dog");
+    String dog = null;
+    if(dogArr!=null) { // 견종이 비어있지 않다면.
+        dog= String.join(",", dogArr);
+    }
+    String roomInfo = multiRequest.getParameter("room_info");
+    
+    
+    
+    
+    // 세션에서 로그인한 회원의 번호를 얻어옴
+    Member loginMember = (Member)request.getSession().getAttribute("loginMember");
+    int memberNo = loginMember.getMemberNo();
+    
+
+    
+    // 얻어온 변수들을 모두 저장할 Map  생성
+    Map<String,Object> map = new HashMap<String,Object>();
+    map.put("roomName",roomName);
+    map.put("location2",location2);
+    map.put("phone",phone);
+    map.put("fList",fList);
+    map.put("checkin", checkin);
+    map.put("checkout", checkout);
+    map.put("facility", facility);
+    map.put("dog", dog);
+    map.put("roomInfo", roomInfo);
+    map.put("memberNo", memberNo);
+    
+    // 4. 게시글 등록 비즈니스 로직 수행 후 결과 반환받기
+    int result = service.insertRoom(map);
+    
+    if(result>0) {// DB에 데이터 등록 성공하면 result에 병원번호가 저장되어 있다.
+        swalIcon = "success";
+        swalTitle = "숙소 등록 성공";
+        path = "view?cp=1&roomNo="+result;
+        
+        
+    } else {
+        swalIcon = "error";
+        swalTitle ="등록 실패";
+        path = "list";
+    }
+    
+    request.getSession().setAttribute("swalIcon", swalIcon);
+    request.getSession().setAttribute("swalTitle", swalTitle);
+        
+        response.sendRedirect(path);
+}
+```
+
+<br><br>
+
+- 게시글 등록 Service
+
+```java
+	public int insertRoom(Map<String, Object> map) throws Exception{
+		Connection conn = getConnection();
+		int result = 0;
+		
+		// 1. 추가될 번호 가져오기
+		int insertNo = dao.selectNextNo(conn);
+		
+		if(insertNo>0) {
+			// 얻어온 번호를 map에 추가해준다.
+			map.put("insertNo", insertNo);
+			
+			// 크로스 사이트 스크립팅 방지
+			String roomInfo = (String)map.get("roomInfo");
+			
+			roomInfo = replaceParameter(roomInfo);
+			
+			// 내용에 개행문자 변경처리.
+			roomInfo = roomInfo.replaceAll("\r\n", "<br>");
+			
+			// 처리된 내용을 다시 map에 추가
+			map.put("roomInfo",roomInfo);
+			
+			
+			try {
+				// 파일 정보 제외한 정보  등록하는 DAO호출
+				result = dao.insertRoom(conn,map);
+				
+				
+				// 파일 정보만 등록하는 DAO
+				List<Attachment> fList = (List<Attachment>)map.get("fList");
+				
+				if(result>0 && !fList.isEmpty()) {
+					// 게시글부분, 파일정보 모두 있다면.
+					 result =0; // result를  재활용하기 위해 초기화시킴
+					 
+					 
+					 // fList의 요소를 하나씩 반복접근하여 DAO메소드를 반복 호출해 정보를 삽입함.
+					 for(Attachment at : fList) {
+						 // 파일 정보가 저장된 Attachment 객체에 해당 파일이 작성된 게시글 번호를 추가 세팅
+						 at.setRoomNo(insertNo);
+						 
+						 result = dao.insertAttachment(conn,at); 
+						 
+						 if(result==0) { // 등록 실패.이미지 정보가 DB에 안들어갔을떄.
+							 
+							 // 강제로 예외를 발생시킨다. ( 사용자 정의 예외 )
+							 throw new FileInsertFailedException("파일 정보 삽입 실패");
+							 
+						 }
+						System.out.println(result);
+					 }
+				}
+				
+			}catch(Exception e) {
+				// 게시글 또는 파일 정보 삽입 중 에러 발생 시 서버에 저장된 파일을 삭제하는 작업이 필요함.
+				// 왜? MultipartRequest 객체가 생성되면 바로 서버에 등록이 되기 때문에
+				// 객체는 생성되었지만 비즈니스 로직 실패시  데이버와 서버의 정보 불일치가 일어남.
+				List<Attachment> fList = (List<Attachment>)map.get("fList");
+				
+				if(!fList.isEmpty()) {
+					for(Attachment at : fList ) {
+						String filePath = at.getFilePath();
+						String fileName = at.getFileName();
+						
+						File deleteFile = new File(filePath + fileName);
+						
+						if(deleteFile.exists()) {
+							// 해당 경로에 해당 파일이 존재하면
+							deleteFile.delete(); // 해당 파일 삭제
+						}
+				}
+				
+			}
+			// 에러페이지가 보여질 수 있도록 catch 한 Exception을 Controller로 던져줌
+			throw e;
+				
+			}// end catch
+			
+			if(result > 0) {
+				commit(conn);
+				// 삽입 성공 시 해당 병원의 상세 조회 화면으로 이동해야되기 때문에 
+				// 글 번호를 받환할 수 있도록 result에 hospitalNo를 대입
+				result = insertNo;
+				
+			}else {
+				rollback(conn);
+			}
+			
+		}
+		close(conn);
+		return result;
+	}
+```
+<br><br>
+
+- 사용자가 문자열에 스크립트를 삽입하여 실행하는 것을 막기 위해 
+  크로스 사이트 스크립팅 방지처리를 해준다.(HTML태그 불허용)
+
+```java
+// 크로스 사이트 스크립팅
+// 웹 애플리케이션에서 많이 나타나는 보안 취약점 중 하나로
+// 웹 사이트 관리자가 아닌 사용자가 웹 페이지에 악성 스크립트를 삽입할 수 있는 취약점
+
+// 크로스 사이트 스크립팅 방지 메소드
+private String replaceParameter(String param) {
+    String result = param;
+    
+    if(result != null) {
+        result = result.replaceAll("&", "&amp;"); 
+        result = result.replaceAll("<", "&lt;"); 
+        result = result.replaceAll(">", "&gt;"); 
+        result = result.replaceAll("\"", "&quot;"); 
+    }
+    
+    return result;
 }
 ```
 <br><br>
 
-- 일치하는 썸네일 목록 조회 시 수행되는 sql문
+
+- 다음 게시글 번호 가져오는 DAO
+
+> 게시글 등록 시 이용자들 간 게시글 번호가 꼬일 수 있어서 따로 불러온다.
+
+```java
+public int selectNextNo(Connection conn) throws Exception {
+    int insertNo = 0;
+    String query = prop.getProperty("selectNextNo");
+    
+    try {
+        stmt = conn.createStatement();
+        rset = stmt.executeQuery(query);
+        
+        if(rset.next()) {
+            insertNo = rset.getInt(1);
+        }
+    }finally {
+        close(rset);
+        close(stmt);
+    }
+    return insertNo;
+}
+```
+
+<br><br>
+
+- 다음 게시글 번호 가져올 때 사용되는 sql문
 
 ```sql
-<entry key="selectThumbnailList">
-SELECT * FROM ROOM_IMG
-WHERE ROOM_NO
-IN (SELECT ROOM_NO FROM  
-	(SELECT ROWNUM RNUM, R.* FROM 
-		(SELECT ROOM_NO FROM ROOM
-		WHERE ROOM_DEL_FL='N'
-		 ORDER BY ROOM_NO DESC)R)
-WHERE RNUM BETWEEN ? AND ? )
-AND FILE_LEVEL =0
+<entry key="selectNextNo">
+SELECT SEQ_ROOM.NEXTVAL FROM DUAL
 </entry>
 ```
 
 <br><br>
 
->전달받은 값을 화면에 뿌려준다
+- 숙소 정보 등록 Service(파일정보 제외)
 
-- JSP
+```java
+public int insertRoom(Connection conn, Map<String, Object> map) throws Exception {
+    int result =0;
+    
+    String query = prop.getProperty("insertRoom");
+    
+    try {
+        pstmt = conn.prepareStatement(query);
+        pstmt.setInt(1, (int)map.get("insertNo"));
+        pstmt.setString(2, (String)map.get("roomName"));
+        pstmt.setString(3, (String)map.get("location2"));
+        pstmt.setString(4, (String)map.get("phone"));
+        pstmt.setString(5, (String)map.get("roomInfo"));
+        pstmt.setString(6, (String)map.get("checkin"));
+        pstmt.setString(7, (String)map.get("checkout"));
+        pstmt.setString(8, (String)map.get("facility"));
+        pstmt.setString(9, (String)map.get("dog"));
+        pstmt.setInt(10, (int)map.get("memberNo"));
+        
+        result = pstmt.executeUpdate();
+    }finally {
+        close(pstmt);
+    }
+    
+    return result;
+}
+```
+<br><br>
 
-```html
-<c:choose>
-  <c:when test="${empty rList }">
-    <div class="row-item">
-      <div style="text-align: center; font-size: 18px;">등록된 숙소가
-        없습니다.</div>
-    </div>
-  </c:when>
+- 숙소 등록 시 사용되는 sql문
+
+```sql
+<entry key="insertRoom">
+INSERT INTO ROOM
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, ? )
+</entry>
+```
+
+<br><br>
 
 
-  <c:otherwise>
-    <div class="row-item">
-      <table id="list">
-        <tr>
-          <td><c:forEach var="room" items="${rList}">
-              <div class="roomList numberSelect">
-                <!-- 썸네일 출력  -->
-                <c:set var="flag" value="true" />
-                <c:forEach var="thumbnail" items="${fList }">
-                  <c:if test="${room.roomNo == thumbnail.roomNo }">
-                    <div class="thumbnail_area " style="margin-left: 10px;">
-                      <img class="thumbnail_img"
-                        src="${contextPath}/resources/image/uploadRoomImages/${thumbnail.fileName}"></img>
-                      <c:set var="flag" value="false" />
-                    </div>
-                  </c:if>
-                </c:forEach>
-                <c:if test="${flag == 'true'}">
-                  <img class="thumbnail_img"
-                    src="${contextPath }/resources/image/icon/nonImage.png">
-                </c:if>
+- 파일 정보 등록 Service
+
+```java
+public int insertAttachment(Connection conn, Attachment at) throws Exception {
+    int result =0;
+    
+    String query = prop.getProperty("insertAttachment");
+    
+    try {
+        pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, at.getFilePath());
+        pstmt.setString(2, at.getFileName());
+        pstmt.setInt(3, at.getFileLevel());
+        pstmt.setInt(4, at.getRoomNo());
+        
+        result = pstmt.executeUpdate();
+    }finally {
+        close(pstmt);
+    }
+    return result;
+}
+```
+
+<br><br>
 
 
-                <div class="title_area" style="cursor: pointer;">
-                  <p class="title">${room.roomName }</p>
-                </div>
-                <div class="address_area"
-                  style="cursor: pointer; margin-left: 10px;">
-                  <p class="address">${room.location2 }</p>
-                </div>
-                <span style="visibility: hidden">${room.roomNo }</span>
-              </div>
+- 파일 정보 등록 시 사용되는 sql문
 
-            </c:forEach></td>
-        </tr>
-      </table>
-    </div>
-  </c:otherwise>
-
-</c:choose>
-
+```sql
+<entry key="insertAttachment">
+INSERT INTO ROOM_IMG
+VALUES(SEQ_ROOMIMG.NEXTVAL,?,?,?,?)
+</entry>
 ```
 
 <br><br>
