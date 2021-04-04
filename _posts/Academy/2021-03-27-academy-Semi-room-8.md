@@ -58,7 +58,7 @@ else if(command.equals("/view")) {
         // 해당 게시글에 포함된 이미지 파일 목록 조회 서비스 호출
         List<Attachment> fList = service.selectRoomFiles(roomNo);
         
-        if(!fList.isEmpty()) { // 해당 동물병원 이미지 정보가 DB에 있을 경우
+        if(!fList.isEmpty()) { // 해당  숙소 이미지 정보가 DB에 있을 경우
             request.setAttribute("fList", fList);
         }
         

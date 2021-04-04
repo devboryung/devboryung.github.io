@@ -127,7 +127,7 @@ else if(command.equals("/insert")) {
     // 4. 게시글 등록 비즈니스 로직 수행 후 결과 반환받기
     int result = service.insertRoom(map);
     
-    if(result>0) {// DB에 데이터 등록 성공하면 result에 병원번호가 저장되어 있다.
+    if(result>0) {// DB에 데이터 등록 성공하면 result에 숙소번호가 저장되어 있다.
         swalIcon = "success";
         swalTitle = "숙소 등록 성공";
         path = "view?cp=1&roomNo="+result;
@@ -231,7 +231,7 @@ else if(command.equals("/insert")) {
 			
 			if(result > 0) {
 				commit(conn);
-				// 삽입 성공 시 해당 병원의 상세 조회 화면으로 이동해야되기 때문에 
+				// 삽입 성공 시 해당 숙소의 상세 조회 화면으로 이동해야되기 때문에 
 				// 글 번호를 받환할 수 있도록 result에 hospitalNo를 대입
 				result = insertNo;
 				

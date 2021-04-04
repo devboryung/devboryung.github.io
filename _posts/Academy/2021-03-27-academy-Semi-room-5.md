@@ -102,7 +102,7 @@ div {
 	border: solid 1px orange;
 }
 
-/* 병원 등록하기 */
+/* 숙소 등록하기 */
 #page_name {
 	text-align: center;
 	height: 60px;
@@ -510,7 +510,7 @@ function roomInsertValidate(){
 	
 	
 	
-	/* 병원정보에 내용이 입력이 안 된다면*/
+	/* 숙소 정보에 내용이 입력이 안 된다면*/
 	
 	if ($("#room_info").val().trim().length ==0){
 		alert("숙소 정보를 입력해 주세요.");
