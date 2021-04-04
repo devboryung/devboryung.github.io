@@ -134,7 +134,7 @@ toc: true
 
 
   <!-- 화살표에 들어갈 주소를 변수로 생성 -->
-  <%-- 검색을 안 했을 때 : /hospital/list?cp=1 
+  <%-- 검색을 안 했을 때 : /room/list?cp=1 
             검색을 했을 때 : /search?cp=1&location=서울&sv=49   --%>
   <c:set var="firstPage" value="${pageUrl}?cp=1${searchStr }" />
   <c:set var="lastPage"
@@ -150,7 +150,7 @@ toc: true
     integerOnly="true" />
   <fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true" />
   <c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr }" />
-  <!-- /board/list/do?cp=10  -->
+  <!-- /room/list/do?cp=10  -->
 
   <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9)/10}"
     integerOnly="true" />

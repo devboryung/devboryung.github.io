@@ -157,7 +157,7 @@ toc: true
         integerOnly="true" />
     <fmt:parseNumber var="prev" value="${c1 * 10}" integerOnly="true" />
     <c:set var="prevPage" value="${pageUrl}?cp=${prev}${searchStr }" />
-    <!-- /board/list/do?cp=10  -->
+    <!-- /hospital/list/do?cp=10  -->
 
     <fmt:parseNumber var="c2" value="${(pInfo.currentPage + 9)/10}"
         integerOnly="true" />
