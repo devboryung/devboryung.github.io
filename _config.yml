@@ -260,38 +260,6 @@ compress_html:
 
 # Defaults
 defaults:
-
-  # _posts/blogging
-  - scope:
-      path: "_posts/etc"
-      type: posts
-    values:
-      layout: single
-      classes: wide
-      author_profile: true
-      comments: true
-      share: true
-      search: true
-      related: true
-      #sidebar:
-       # nav: sidebar-Etc
-        
-  # _posts/Wargame
-  - scope:
-      path: "_posts/TIL"
-      type: posts
-    values:
-      layout: single
-      classes: wide
-      author_profile: true
-      comments: true
-      share: true
-      search: true
-      related: true
-      sidebar:
-        title: "Category"
-        nav: sidebar-TIL
-
   # _posts
   - scope:
       path: ""
@@ -304,6 +272,8 @@ defaults:
       share: true
       search: true
       related: true
+      sidebar:
+        nav: sidebar
 
   # _pages
   - scope:
