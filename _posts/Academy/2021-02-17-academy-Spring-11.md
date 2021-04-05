@@ -88,8 +88,6 @@ function sendFile(file,editor){
             // 저장된 이미지를 summernote 에디터에 반영(삽입)
             $(editor).summernote('editor.insertImage', contextPath  + at.filePath + "/" + at.fileName);
 
-
-
         }
     });
 
