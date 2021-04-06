@@ -6,7 +6,6 @@ categories:
   - etc
 tags: 
   - github
-toc: true
 ---
 
 카테고리를 알파벳순으로 변경하려고 한다. <br>
