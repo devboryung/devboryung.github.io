@@ -24,6 +24,7 @@ _includes > nav_list_main 파일에서 카테고리와 관련된 내용을 변�
 ```java
 {% assign sorted_categories = site.categories | sort%}
 ```
+
 sorted_categories 변수를 생성해  site.categories(전체 카테고리)를 정렬해서 담는다.
 
 
