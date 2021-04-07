@@ -13,14 +13,14 @@ tags:
 
 <br>
 
-- 기존
+- 기존 <br>
 ![image](https://user-images.githubusercontent.com/73421820/113731785-02713800-9734-11eb-97f6-453f6d3bab0a.png) 
 
 
 <br>
 
 
-_includes > nav_list_main 파일에서 카테고리와 관련된 내용을 변경할 수 있다.
+`_includes > nav_list_main` 파일에서 카테고리와 관련된 내용을 변경할 수 있다.
 
 ![카테고리](https://user-images.githubusercontent.com/73421820/113733400-62b4a980-9735-11eb-9f73-f074347eebf1.png)
 
@@ -29,18 +29,15 @@ _includes > nav_list_main 파일에서 카테고리와 관련된 내용을 변�
 
 **assing**태그를 이용해 Liquid 변수를 생성한다.
 
-```java
-{% assign sorted_categories = site.categories | sort%}
-```
+![image](https://user-images.githubusercontent.com/73421820/113905095-c0b4c000-980d-11eb-800e-4b4b49b8f78f.png)
+<br>
 
 sorted_categories 변수를 생성해  site.categories(전체 카테고리)를 정렬해서 담는다.
 
 
-```java
-{% for category in sorted_categories %}
-    <li><a href="/categories/{{category[0] }}" class="">{{category[0] | none}} ({{category[1].size}})</a></li>
-{% endfor %}
-```
+![image](https://user-images.githubusercontent.com/73421820/113905161-d32ef980-980d-11eb-81ce-a508f409decd.png)
+
+<br>
 
 반복될 변수를 site.categories가 아닌 정렬된 sorted_categories로 변경해주면 끝~
 
@@ -52,5 +49,7 @@ sorted_categories 변수를 생성해  site.categories(전체 카테고리)를 �
 
 A-Z a-z로 정렬된 것을 확인할 수 있다.
 
-<br><br>
+<br>
 
+Post를 볼 때 옆에 나오는 sideList의 정렬도 바꿔주기 위해 `_includes > nav_list` 도 똑같이 바꿔준다. 
+<br><br>
