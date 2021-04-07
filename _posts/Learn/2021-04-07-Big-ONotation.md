@@ -261,7 +261,7 @@ public int F(int[] arr, int a, int b, int c) {
 
 ### O(sqrt(n))
 
-- square root 란?
+**square root 란?**
 
 √100 = 10  -> 100 = 10 X 10 <br>
 √9 = 3  -> 9 = 3 X 3<br>
