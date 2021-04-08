@@ -1,6 +1,6 @@
 ---
-title: "2021-04-08"
-excerpt: "자바 프로그래밍"
+title: "프로그래밍"
+excerpt: "2021-04-08"
 categories: 
   - JAVA
 tags: 
