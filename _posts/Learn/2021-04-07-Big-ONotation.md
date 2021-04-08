@@ -29,7 +29,7 @@ public void f(int[] n){
 언제나 일정한 속도로 결과를 반환하게 됩니다.<br>
 이러한 알고리즘을 O(1)의 시간 복잡도를 가진다고 합니다.<br>
 
-![image](https://user-images.githubusercontent.com/73421820/113887468-78d96d00-97fc-11eb-931c-bb8d364dab73.png)
+![image](https://user-images.githubusercontent.com/73421820/113887468-78d96d00-97fc-11eb-931c-bb8d364dab73.png)<br>
 [자료출처](https://www.youtube.com/watch?v=6Iq5iMCVsXA)
 
 데이터가 증가해도 처리 시간에 변화가 없습니다.<br>
@@ -158,7 +158,7 @@ O(n²)과 비슷한 양상을 보이지만, 데이터가 늘어날 때마다 가
 O(2ⁿ)는 피보나치수열과 비슷합니다.<br>
 `피보나치수열`은 1부터 시작해서 한 면을 시작으로 정사각형을 만듭니다.<br>
 1,1,2,3,5,8 = n번째 데이터는 n-1 , n-2 값의 합입니다.
-![피보나치](https://user-images.githubusercontent.com/73421820/113894056-9ad5ee00-9802-11eb-90ca-2dff2853e3a5.gif)
+![피보나치](https://user-images.githubusercontent.com/73421820/114027289-2ce8ff80-98b2-11eb-92fa-d0c831ba59f6.gif)
 <br>
 [자료출처](https://www.youtube.com/watch?v=6Iq5iMCVsXA)
 
