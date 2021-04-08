@@ -1,5 +1,8 @@
 {% if site.comments.provider and page.comments %}
 {% case site.comments.provider %}
+
+  {% when "utterances" %}
+    {% include /comments-providers/utterances.html%}
   {% when "disqus" %}
     {% include /comments-providers/disqus.html %}
   {% when "discourse" %}

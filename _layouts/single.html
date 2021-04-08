@@ -62,8 +62,8 @@ layout: default
         {% elsif page.date %}
           <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Updated:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time></p>
         {% endif %}
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <!-- 1 -->
+<!--    google ad      
+       <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
           <ins class="adsbygoogle"
               style="display:block"
               data-ad-client="ca-pub-5072558553152830"
@@ -72,7 +72,7 @@ layout: default
               data-full-width-responsive="true"></ins>
           <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
-          </script>
+          </script> -->
       </footer>
 
       {% if page.share %}{% include social-share.html %}{% endif %}
