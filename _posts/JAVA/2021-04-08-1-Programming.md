@@ -11,6 +11,12 @@ tags:
 toc: true
 ---
 
+<br>
+
+[Do it!강의](https://www.inflearn.com/course/%EC%9E%90%EB%B0%94-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9E%85%EB%AC%B8/dashboard)
+
+<br>
+
 ## 프로그래밍이란?
 
 - 프로그래밍 : 컴퓨터에게 일을 하도록 명령어를 만드는 것(소스)<br>

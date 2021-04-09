@@ -1,6 +1,6 @@
 ---
-title: "2021년 04월 06일"
-excerpt: "카테고리 정렬"
+title: "카테고리 정렬"
+excerpt: "2021년 04월 06일"
 search: true
 categories: 
   - etc
