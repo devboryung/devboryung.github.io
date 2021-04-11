@@ -1,5 +1,5 @@
 ---
-title: "클래스와 객체"
+title: "[Do it! 자바 프로그래밍 입문]클래스와 객체"
 excerpt: "2021-04-10"
 categories: 
   - JAVA
