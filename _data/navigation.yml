@@ -1,11 +1,11 @@
 # main links
 main:
-  - title: "About"
-    url: "/about/"
+  #- title: "About"
+  #  url: "/about/"
   - title: "Category"
     url: "/categories/"
   - title: "Portfolio"
-    url: "/portfolio/"
+    url: "https://www.notion.so/fe7317161fd744e58ce1c32287fc413b"
 #posts:
 #  - title: til
 #    children:
