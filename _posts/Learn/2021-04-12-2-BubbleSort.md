@@ -26,6 +26,37 @@ toc: true
 - 코드
 
 ```java
+import java.util.Scanner;
 
+public class Example1 {
+	
+	public static void main(String args[]) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("배열의 크기:");
+		int n = sc.nextInt();
+		
+		int[] arr = new int[n];
+		
+		
+		// 난수를 생성해서 인덱스에 차례대로 값 대입
+		for(int i=0; i<arr.length; i++) {
+			arr[i] = (int)(Math.random()*n+1);
+		}
+
+		
+		// 버블 정렬로 오름차순 정렬 
+		for(int i=0; i<arr.length-1; i++) {
+			for(int j=0; j<arr.length-i-1; j++) {
+				if(arr[j]>arr[j+1]) {
+					int temp = arr[j+1];
+					arr[j+1] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
+	}
+}
 ```
 
+<br><br>
