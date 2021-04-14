@@ -23,7 +23,7 @@ GC는 UnReachable객체를 수거한다.<br>
 Mark and Sweep 알고리즘<br>
 
 1. 모든 변수를 스캔하면서 어떤 객체를 참조하고 있는지 `Mark`한다.
-2. Unreachable객체를 Heap영역에서 제거한다.
+2. Unreachable객체를 Heap영역에서 제거한다.(`Sweep`)
 3. 제거 후 사이 사이 공간이 남아있다면 분산된 객체들을 Heap의 시작 주소로 모아 메모리가 할당된 부분과 그렇지 않은 부분으로 나누어주어 메모리의 단편화를 막아준다. (compact과정)
 
 <br>
