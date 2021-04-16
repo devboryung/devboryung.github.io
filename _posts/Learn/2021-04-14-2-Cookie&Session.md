@@ -87,6 +87,6 @@ HTTP(Hypertext Transfer Protocol)는 인터넷상에서 데이터를 주고 받�
 
 
 
-*[참고]*(https://devuna.tistory.com/23)
+참고(https://devuna.tistory.com/23)
 
 <br><br>
