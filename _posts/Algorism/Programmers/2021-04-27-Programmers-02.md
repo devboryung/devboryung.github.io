@@ -64,7 +64,7 @@ class Solution {
 
 
 
-<br><br>
+<br>
 
 
 ### 풀이 (subString 이용)
