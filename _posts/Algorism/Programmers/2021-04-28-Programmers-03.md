@@ -30,7 +30,7 @@ arr의 원소는 -10,000 이상 10,000 이하인 정수입니다.<br>
 <br><br>
 
 
-### 풀이 (charAt 이용)
+### 풀이
 
 ```java
 class Solution {
@@ -58,7 +58,7 @@ class Solution {
 
 ![image](https://user-images.githubusercontent.com/73421820/116402692-b1062580-a867-11eb-9f7b-55da74d1a150.png)
 <br>
-
+<br><br>
 
 ### 다른 사람의 풀이
 
