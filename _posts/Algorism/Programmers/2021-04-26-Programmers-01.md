@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스]두 정수 사이의 합"
+title: "[프로그래머스]두 정수 사이의 합(JAVA)"
 excerpt: "Algorism"
 search: true
 categories: 

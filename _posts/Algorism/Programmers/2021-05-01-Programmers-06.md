@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스]짝수와 홀수"
+title: "[프로그래머스]짝수와 홀수(JAVA)"
 excerpt: "Algorism"
 search: true
 categories: 
@@ -15,7 +15,7 @@ tags:
 
 - 제한 조건 
 
-num은 int 범위의 정수입니다.<br>A
+num은 int 범위의 정수입니다.<br>
 0은 짝수입니다.<br>
 
 

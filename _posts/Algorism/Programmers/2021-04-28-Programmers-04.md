@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스]자릿수 더하기"
+title: "[프로그래머스]자릿수 더하기(JAVA)"
 excerpt: "Algorism"
 search: true
 categories: 
