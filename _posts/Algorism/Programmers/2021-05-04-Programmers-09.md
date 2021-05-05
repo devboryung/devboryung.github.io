@@ -133,3 +133,27 @@ class Solution {
 관련 자료를 한번 찾아봐야겠다.😢
 
 <br><br>
+
+## 다른 사람 풀이(정규식)
+
+```java
+class Solution {
+  public String solution(String phone_number) {
+    return phone_number.replaceAll(".(?=.{4})", "*");
+  }
+}
+```
+
+<br>
+
+- 실행 결과
+
+![image](https://user-images.githubusercontent.com/73421820/117119225-b8c84b80-adcc-11eb-8b8f-dee17120b128.png)
+
+
+<br><br>
+
+정규식을 사용해서 한 줄로 코딩을 끝냈다..😰<br>
+
+
+<br><br>
