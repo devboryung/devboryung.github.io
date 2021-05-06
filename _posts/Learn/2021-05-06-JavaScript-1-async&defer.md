@@ -1,5 +1,5 @@
 ---
-title: "[JavaScript]js동작 순서,script async와 defer의 차이"
+title: "[JavaScript]JS동작 순서,script async와 defer의 차이"
 excerpt: "JavaScript"
 categories: 
   - Learn
@@ -12,7 +12,7 @@ toc: true
 
 ## HTML에 자바스크립트를 포함할 때 동작 순서
 
-사용자가 HTML 파일을 다운로드 받았을 때 브라우저가 위에서부터 한 줄 씩 분석(parsing)한다. <br>
+사용자가 HTML 파일을 다운로드 받았을 때 브라우저가 위에서부터 한 줄씩 분석(parsing)한다. <br>
 분석한 것을 CSS와 병합해서 DOM요소로 변환한다.<br>
 <br>
 
@@ -39,7 +39,7 @@ toc: true
 
 
 
-위에서 부터 한 줄씩 분석하다가 script 코드가 보이면 HTML parsing을 잠시 멈추고 필요한 javaScript파일을 서버에서 다운받아서 실행한 후 다시 HTML을 parsing한다. <br>
+위에서부터 한 줄씩 분석하다가 script 코드가 보이면 HTML parsing을 잠시 멈추고 필요한 javaScript 파일을 서버에서 다운받아서 실행한 후 다시 HTML을 parsing한다. <br>
 
 단점 : js파일이 크거나 인터넷이 느릴 경우 웹 사이트를 보기까지 많은 시간이 소요된다.<br>
 
@@ -67,7 +67,7 @@ toc: true
 
 HTML을 전체적으로 parsing 한 후 페이지가 준비된 다음에 필요한 javaScript파일을 서버에서 다운받아서 실행한다.<br>
 
-단점 : js를 받기 전에 기본적인 html 페이지가 보여지지만 js에 의존적인 페이지인 경우 사용자가 정상적인 페이지를 보기 위해서 대기해야된다. <br>
+단점 : js를 받기 전에 기본적인 html 페이지가 보여지지만 js에 의존적인 페이지인 경우 사용자가 정상적인 페이지를 보기 위해서 대기해야 된다. <br>
 
 <br>
 
@@ -93,7 +93,7 @@ async = boolean 타입이기 때문에 선언만 해도 true값을 가진다.
 
 - 동작 과정
 
-HTML을 parsing하다가 asyn 속성이 있는 js를 만나면 병렬로 js를 다운로드 받으며 HTML parsing을 계속 한다.<br> js가 다운로드 완료되면 parsing을 멈추고 다운로드된 js파일을 실행한다. js파일 실행이 완료되면 나머지 html을 parsing한다. <br>
+HTML을 parsing하다가 asyn 속성이 있는 js를 만나면 병렬로 js를 다운로드 받으며 HTML parsing을 계속한다.<br> js가 다운로드 완료되면 parsing을 멈추고 다운로드된 js파일을 실행한다. js파일 실행이 완료되면 나머지 html을 parsing한다. <br>
 
 
 장점 : js다운이 html parsing과 병렬적으로 이뤄지기 때문에 다운받는 시간을 절약할 수 있다. <br>
