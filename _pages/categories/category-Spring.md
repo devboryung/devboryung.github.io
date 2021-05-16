@@ -1,7 +1,7 @@
 ---
 layout: archive
 permalink: /categories/Spring
-title: "Spring practice"
+title: "Spring Practice"
 author_profile: true
 sidebar_main: true
 ---
