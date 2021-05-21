@@ -162,3 +162,121 @@ timeMapper.getClass().getName()은 실제 동작하는 클래스의 이름을 �
 <br><br>
 
 ### XML 매퍼와 같이 쓰기
+
+MyBatis를 이용해서 SQL을 처리할 때 어노테이션을 이용하는 방식이 압도적으로 편리하지만, SQL이 복잡하거나 길어지는 경우에는 어노테이션 보다는 XML을 이용하는 방식을 더 선호한다.<br><br>
+XML을 작성해서 사용할 때는 XMl 파일의 위치와 XML 파일에 지정하는 namespace가 중요하다.<br>
+
+[XML에 대한 설명](https://mybatis.org/mybatis-3/ko/sqlmap-xml.html)<br><br>
+
+Mapper 인터페이스와 XML을 같이 이용하기 위해 기존의 TimeMapper 인터페이스에 추가적인 메서드를 선언한다.<br>
+
+```java
+package org.zerock.mapper;
+
+import org.apache.ibatis.annotations.Select;
+
+public interface TimeMapper {
+	@Select("SELECT sysdate FROM dual")
+	public String getTime();
+	
+	public String getTime2();
+}
+```
+<br>
+추가된 getTime2 메서드에는 @Select와 MyBatis의 어노테이션, SQL이 존재하지 않는다.<br>
+실제 SQL은 XML을 이용해서 처리하며, 새로 생성한 TimeMapper.xml을 이용한다.<br>
+
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.zerock.mapper.TimeMapper">
+  	<select id="getTime2" resultType="string">
+  		SELECT sysdate FROM dual
+  	</select>
+  </mapper>
+```
+
+MyBatis는 Mapper 인터페이스와 XML을 인터페이스의 이름과 namespace 속성값을 가지고 판단한다.<br>
+XML의 namespace와 동일한 이름이 존재하면 이를 병합해서 처리한다.<br>
+이 경우 메서드 선언은 인터페이스에 존재하고 SQL에 대한 처리는 XML을 이용하는 방식이다.
+<br>
+
+select 태그의 id속성의 값은 메서드의 이름과 동일하게 맞춰야 한다.<br>
+resultType 속성은 인터페이스에 선언된 메서드의 리턴 타입과 동일하게 작성한다.<br>
+
+<br><br>
+
+### log4jdbc-log4j2 설정
+
+MyBatis는 내부적으로 JDBC의 PreparedStatement를 이용해서 SQL을 처리한다.<br>
+SQL에 전달되는 파라미터의 JDBC에서와 같이 '?'로 치환되어서 처리된다.<br>
+복잡한 SQL의 경우 '?'로 나오는 값이 제대로 되었는지 확인하기가 쉽지 않고, 실행된 SQL의 내용을 정확히 확인하기 어렵다.<br>
+이런 문제를 해결하기 위해서 SQL을 변환해서 PreparedStatement에 사용된 '?'가 어떤 값으로 처리되었는지 확인하는 기능을 추가하도록 합니다.<br>
+SQL 로그를 제대로 보기 위해서 log4jdbc-log4j2 라이브러리를 사용한다.<br>
+
+
+pom.xml에 라이브러리를 추가한다.
+
+```xml
+<dependency>
+	<groupId>org.bgee.log4jdbc-log4j2</groupId>
+	<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+	<version>1.16</version>
+</dependency>
+```
+
+로그 설정 파일을 추가한다.
+
+```java
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+```
+
+root-context.xml에서 JDBC의 연결 정보를 수정한다.<br>
+수정이 제대로 되지 않으면 데이터베이스의 로그가 정상적으로 기록되지 않는다.<br>
+
+
+```xml
+<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+<!-- 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/> -->
+	<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+	<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+	<property name="username" value="book_ex"/>
+	<property name="password" value="book_ex"/>
+</bean>
+```
+
+
+<br><br>
+
+### 로그의 레벨 설정
+
+테스트 코드를 실행하면 상당히 많은 양의 로그가 출력되기 때문에 시간이 지나면 불편해지게 되기 때문에 log4j.xml에서 로그의 레벨을 수정해 주면 좋다.<br><br>
+기본 설정의 로그는 info 레벨이기 때문에 warn과 같이 좀 더 높은 레벨의 로그만 기록하게 수정하면 테스트 코드를 실행할 때 이전에 비해 로그의 양이 줄어드는 것을 확인할 수 있다.<br>
+
+```xml
+<logger name="jdbc.audit">
+	<level value="warn" />
+</logger>
+<logger name="jdbc.resultset">
+	<level value="warn" />
+</logger>
+<logger name="jdbc.connection">
+	<level value="warn" />
+</logger>
+```
+
+[로그 레벨에 대한 설명](https://logging.apache.org/log4j/2.x/manual/customloglevels.html)
+
+<br><br>
+
+
+
+
+관련 서적 : [코드로 배우는 스프링 웹 프로젝트](https://cafe.naver.com/gugucoding)
+<br><br>
+
