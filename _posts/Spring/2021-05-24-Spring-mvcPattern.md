@@ -218,7 +218,7 @@ View에 전달해야 하는 데이터는 주로 Model이라는 객체에 담아�
 <br><br>
 
 모든 Request는 DispatcherServlet을 통하도록 설계되는데, 이런 방식을 Front-Controller 패턴이라고 한다.<br>
-Front-Controller 패턴을 이용하면 전체 흐름을 강제로 제한할 수 있다.<br>
+Front-Controller 패턴을 이용하면 전체 흐름을 `강제`로 제한할 수 있다.<br>
 예를 들어 HttpServlet을 상속해서 만든 클래스를 이용하는 경우 특정 개발자는 이를 활용할 수 있지만 다른 개발자는 자신이 원래 하던 방식대로 HttpServlet을 그대로 상속해서 개발할 수 있다.<br>
 Front-Controller 패턴을 이용하는 경우 모든 Request의 처리에 대한 분배가 정해진 방식대로만 동작하기 때문에 더 엄격한 구조를 만들어 낼 수 있다.<br>
 
