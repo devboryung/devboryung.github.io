@@ -20,7 +20,7 @@ toc: true
 
 ### @Controller, @RequestMapping
 
-> 클래스 생성
+> SampleController 클래스
 
 ```java
 package org.zerock.controller;
