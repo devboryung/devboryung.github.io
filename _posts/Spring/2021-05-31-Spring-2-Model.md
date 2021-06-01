@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Model"
+title: "[Spring 실습] Model 데이터 전달자"
 excerpt: "Spring Framework"
 categories: 
   - Spring
@@ -7,6 +7,8 @@ tags:
   - Spring
 toc: true
 ---
+
+## Model 데이터 전달자
 
 Controller의 메서드를 작성할 때 특별하게 `Model`이라는 타입을 파라미터로 지정할 수 있다.<br>
 
@@ -92,7 +94,6 @@ return "redirect:/";
 RedirectATtributes는 Model과 같이 파라미터로 선언해서 사용하고, `addFlashAttribute(이름,값)` 메서드를 이용해서 화면에 한 번만 사용하고 다음에는 사용되지 않는 데이터를 전달하기 위해서 사용한다.<br>
 
 <br>
-
 
 
 
