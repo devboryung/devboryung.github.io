@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] MVC의 Controller"
+title: "[Spring] MVC의 Controller"
 excerpt: "Spring Framework"
 categories: 
   - Spring

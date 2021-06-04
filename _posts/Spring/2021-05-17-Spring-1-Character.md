@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] 특징"
+title: "[Spring] 특징"
 excerpt: "Spring Framework"
 categories: 
   - Spring

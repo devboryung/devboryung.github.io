@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Oracle Database 연동"
+title: "[Spring] Oracle Database 연동"
 excerpt: "Spring Framework"
 categories: 
   - Spring

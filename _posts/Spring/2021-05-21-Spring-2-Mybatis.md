@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Mybatis 연동"
+title: "[Spring] Mybatis 연동"
 excerpt: "Spring Framework"
 categories: 
   - Spring

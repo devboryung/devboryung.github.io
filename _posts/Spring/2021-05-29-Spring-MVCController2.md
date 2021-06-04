@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Controller의 파라미터 수집"
+title: "[Spring] Controller의 파라미터 수집"
 excerpt: "Spring Framework"
 categories: 
   - Spring

@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] 의존성 주입 테스트(2)"
+title: "[Spring] 의존성 주입 테스트(2)"
 excerpt: "Spring Framework"
 categories: 
   - Spring

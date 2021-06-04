@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] 환경설정"
+title: "[Spring] 환경설정"
 excerpt: "Spring Framework"
 categories: 
   - Spring

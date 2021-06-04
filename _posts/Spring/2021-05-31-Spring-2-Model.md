@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Model 데이터 전달자"
+title: "[Spring] Model 데이터 전달자"
 excerpt: "Spring Framework"
 categories: 
   - Spring

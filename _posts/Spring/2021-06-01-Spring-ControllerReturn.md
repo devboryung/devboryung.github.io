@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Controller의 리턴 타입"
+title: "[Spring] Controller의 리턴 타입"
 excerpt: "Spring Framework"
 categories: 
   - Spring

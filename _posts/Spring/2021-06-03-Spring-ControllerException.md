@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] Controller의 Exception 처리"
+title: "[Spring] Controller의 Exception 처리"
 excerpt: "Spring Framework"
 categories: 
   - Spring

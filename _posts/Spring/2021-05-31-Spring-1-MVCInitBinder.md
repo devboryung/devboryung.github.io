@@ -1,5 +1,5 @@
 ---
-title: "[Spring 실습] @InitBinder"
+title: "[Spring] @InitBinder"
 excerpt: "Spring Framework"
 categories: 
   - Spring
