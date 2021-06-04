@@ -35,7 +35,8 @@ toc: true
 
 ### 스프링 MVC 구조
 
-![image](https://user-images.githubusercontent.com/73421820/120745427-15d43000-c538-11eb-9c8c-688c8d401da2.png)
+![image](https://user-images.githubusercontent.com/73421820/120746534-6187d900-c53a-11eb-8cc3-c11def8b3ca0.png)
+
 
 <br>
 
