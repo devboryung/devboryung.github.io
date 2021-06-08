@@ -1,5 +1,5 @@
 ---
-title: "[Spring] 영속/비즈니스 계층의 CRUD 구현"
+title: "[Spring] 영속/비즈니스 계층의 CRUD 구현 준비"
 excerpt: "Spring Framework"
 categories: 
   - Spring
@@ -192,7 +192,6 @@ public List<BoardVO> getList();
 ![image](https://user-images.githubusercontent.com/73421820/121194961-296df680-c8aa-11eb-802f-3b441500565c.png)
 
 
-<br><br>
 
 <br><br>
 
