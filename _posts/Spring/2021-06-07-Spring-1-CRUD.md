@@ -148,9 +148,48 @@ testGetList()의 결과는 SQL Developer에서 실행된 것과 동일해야만 
 
 > 실행 결과
 
-```xml
+![image](https://user-images.githubusercontent.com/73421820/121191669-258ca500-c8a7-11eb-9713-4570a3b75b86.png)
 
+<br>
+
+BoardMapperTests를 이용해서 테스트가 완료되면  Mapper XML파일을 생성한다.<br>
+
+> BoardMapper.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC	 "-//mybatis.org//DTD Mapper 3.0//EN" "thhp://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mapper.BoardMapper">
+	<select id="getList" resultType="org.zerock.domain.BoardVO">
+		<![CDATA[
+			select * from tbl_board where bno > 0	
+		]]>
+	</select>
+</mapper>
 ```
+<br>
+
+XMl 작성 시 \<mapper\>의 namespace 속성값을 Mapper 인터페이스와 동일한 이름을 주는 것에 주의하고, \<select\> 태그의 id 속성값은 메서드의 이름과 일치하게 작성한다.<br>
+resultType 속성의 값은 select 쿼리의 결과를 특정 클래스의 객체로 만들기 위해서 설정한다.<br>
+XML에 사용한 CDATA 부분은 XML에서 부등호를 사용하기 위해서 사용한다.<br>
+<br>
+XML에 SQL문이 처리되었으니 BoardMapper 인터페이스에 SQL은 제거해도 된다.<br>
+
+> BoardMapper
+
+```java
+//@Select("select * from tbl_board where bno>0")
+public List<BoardVO> getList();
+```
+<br>
+
+인터페이스 수정 후에는 반드시 기존의 테스트 코드를 통해서 기존과 동일하게 동작하는지 확인해야 한다.<br>
+
+> 실행 결과
+
+![image](https://user-images.githubusercontent.com/73421820/121194961-296df680-c8aa-11eb-802f-3b441500565c.png)
 
 
 <br><br>
