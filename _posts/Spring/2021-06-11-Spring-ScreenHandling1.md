@@ -141,7 +141,8 @@ JSP 페이지를 작성하다 보면 JavaScript로 브라우저 내에서의 조
 footer.jsp의 상단에 있는 jquery.min.js파일의 \<scipt\> 태그를 제거한다.<br>
 
 > footer.jsp
-```jsp
+
+```java
 <!-- jQuery -->
 <script src="/resources/vendor/jquery/jquery.min.js"></script>
 ```
@@ -152,7 +153,7 @@ jQuery는 인터넷을 통해서 다운로드 받을 수 있게 jQuery의 링크
 
 > header.jsp
 
-```jsp
+```java
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 ```
 
@@ -169,7 +170,7 @@ SB Admin2는 반응형으로 설계되어 있어서 브라우저의 크기에 �
 
 > footer.jsp
 
-```jsp
+```java
 <script>
 $(document).ready(function() {
     $('#dataTables-example').DataTable({
