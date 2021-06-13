@@ -89,7 +89,7 @@ register.jsp에 있던 <form\> 태그는 조회 페이지에서는 그다지 필
 				
 				<div class="form-group">
 					<label>Writer</label> <input class="form-control" name='writer'
-					readonly="readonly"><c:out value="${board.writer }"/>
+					value="<c:out value="${board.writer }"/>" readonly="readonly">
 				</div>
 				
 				<button data-oper='modify' class="btn btn-default">Modify</button>
@@ -112,7 +112,7 @@ register.jsp에 있던 <form\> 태그는 조회 페이지에서는 그다지 필
 
 > 실행 결과
 
-![image](https://user-images.githubusercontent.com/73421820/121812908-c6fb6880-cca4-11eb-9ec1-bae99d0a022b.png)
+![image](https://user-images.githubusercontent.com/73421820/121815557-0ed4bc80-ccb2-11eb-81c7-5b86414a6fbc.png)
 <br>
 
 
@@ -234,6 +234,9 @@ JavaScript의 처리는 우선 checkModal()을 실행하는데, 만일 등록된
 
 모달창이 보이는 여부와 관계없이 JavaScript의 모든 처리가 끝나게 되면 history에 쌓이는 상태는 모달창을 보여줄 필요가 없는 상태가 된다.<br>
 최종적인 결과는 아래와 같이 처리된다.<br>
+
+![image](https://user-images.githubusercontent.com/73421820/121815980-f665a180-ccb3-11eb-8075-cd350f04d362.png)
+<br>
 
 
 <br><br>
