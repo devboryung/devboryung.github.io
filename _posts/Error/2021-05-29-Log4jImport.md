@@ -3,9 +3,9 @@ title: "[ERROR]Spring Log4j 라이브러리 오류"
 excerpt: "org.apache.log4j.Logger cannot be resolved to a type"
 search: true
 categories: 
-  - ERROR
+  - Error
 tags: 
-  - ERROR
+  - Error
 ---
 
 Spring 실습을 하는 중 Log4j에서 오류가 발생했다.<br>
