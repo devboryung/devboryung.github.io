@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 화면 처리 - 목록 화면 처리"
-excerpt: "Spring Framework"
+title: "[Spring] 화면 처리"
+excerpt: "Spring Framework - 목록 화면 처리"
 categories: 
   - Spring
 tags: 

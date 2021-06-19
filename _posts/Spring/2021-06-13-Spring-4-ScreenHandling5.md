@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 화면 처리 - 게시물의 수정/삭제 처리"
-excerpt: "Spring Framework"
+title: "[Spring] 화면 처리"
+excerpt: "Spring Framework - 게시물의 수정/삭제 처리"
 categories: 
   - Spring
 tags: 

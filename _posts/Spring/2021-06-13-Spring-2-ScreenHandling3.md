@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 화면 처리 - 등록 입력 페이지와 등록 처리"
-excerpt: "Spring Framework"
+title: "[Spring] 화면 처리"
+excerpt: "Spring Framework - 등록 입력 페이지와 등록 처리"
 categories: 
   - Spring
 tags: 

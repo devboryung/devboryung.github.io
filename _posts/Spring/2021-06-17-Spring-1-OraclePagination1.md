@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 오라클 데이터베이스 페이징 처리 - order by & 인덱스"
-excerpt: "Spring Framework"
+title: "[Spring] 오라클 데이터베이스 페이징 처리"
+excerpt: "Spring Framework - order by & 인덱스"
 categories: 
   - Spring
 tags: 

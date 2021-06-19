@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 화면 처리 - 목록 페이지 작업과 includes"
-excerpt: "Spring Framework"
+title: "[Spring] 화면 처리"
+excerpt: "Spring Framework - 목록 페이지 작업과 includes"
 categories: 
   - Spring
 tags: 

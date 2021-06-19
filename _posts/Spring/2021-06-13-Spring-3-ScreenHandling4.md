@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 화면 처리 - 조회 페이지와 이동"
-excerpt: "Spring Framework"
+title: "[Spring] 화면 처리"
+excerpt: "Spring Framework - 조회 페이지와 이동"
 categories: 
   - Spring
 tags: 

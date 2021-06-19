@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 오라클 데이터베이스 페이징 처리 - ROWNUM과 인라인뷰"
-excerpt: "Spring Framework"
+title: "[Spring] 오라클 데이터베이스 페이징 처리"
+excerpt: "Spring Framework - ROWNUM과 인라인뷰"
 categories: 
   - Spring
 tags: 

@@ -1,6 +1,6 @@
 ---
-title: "[Spring] 오라클 데이터베이스 페이징 처리 - 인덱스를 이용하는 정렬"
-excerpt: "Spring Framework"
+title: "[Spring] 오라클 데이터베이스 페이징 처리"
+excerpt: "Spring Framework - 인덱스를 이용하는 정렬"
 categories: 
   - Spring
 tags: 
