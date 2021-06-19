@@ -41,7 +41,7 @@ tags:
 
 ### 풀이
 
-- 실패
+
 
 ```java
 class Solution {
