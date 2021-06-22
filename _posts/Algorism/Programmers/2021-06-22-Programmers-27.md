@@ -1,5 +1,6 @@
 ---
-title: "[프로그래머스] x만큼 간격이 있는 n개의 숫자 (JAVA)"
+title: "[프로그래머스] 폰켓몬
+ (JAVA)"
 excerpt: "Algorism"
 search: true
 categories: 
@@ -109,7 +110,7 @@ class Solution {
 중복되지 않은 종류들만 list에 담아 가질 수 있는 개수보다 list의 size()가 크다면
 가질 수 있는 개수만 반환하고, 아니라면 list의 size()를 반환하는 것으로 코드를 짰다.<br>
 
-3항 연산자를 이용해서 코드를 더 짧게 작성할 수도 있다.<br>
+삼항연산자를 이용해서 코드를 더 짧게 작성할 수도 있다.<br>
 
 ```java
 import java.util.*;
