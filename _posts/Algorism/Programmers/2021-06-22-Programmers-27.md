@@ -1,6 +1,5 @@
 ---
-title: "[프로그래머스] 폰켓몬
- (JAVA)"
+title: "[프로그래머스] 폰켓몬 (JAVA)"
 excerpt: "Algorism"
 search: true
 categories: 
