@@ -63,7 +63,7 @@ where rn > 10;
 
 
 
-'title like '%Test%' or content like '%Test' 구문 자체는 이상이 없지만, 실제로 동작보면 10개의 데이터가 아니라 많은 양의 데이터가 나온다.<br>
+'title like '%Test%' or content like '%Test%' 구문 자체는 이상이 없지만, 실제로 동작보면 10개의 데이터가 아니라 많은 양의 데이터가 나온다.<br>
 
 그 이유는 위 SQL문에서 AND 연산자가 OR 연산자 보다 우선 순위가 높기 때문에 'ROWNUM이 20보다 작거나 같으면서(AND) 내용에 'Test'라는 문자열이 있거나(OR) 제목에 'Test'라는 문자열이 있는' 게시물들을 검색하게 된다.<br>
 

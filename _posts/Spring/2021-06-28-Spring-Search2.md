@@ -30,7 +30,7 @@ MyBatis는 기존의 iBatis에서 발전하면서 복잡했던 동적 SQL을 작
 <br><br>
 
 
-**<if>**
+**<if\>**
 
 if는 test라는 속성과 함께 특정한 조건이 true가 되었을 때 포함된 SQL을 사용하고자 할 때 작성한다.<br>
 예를 들어, 단일 항목으로 제목(title), 내용(content), 작성자(writer)에 대해서 검색해야 하는 상황일 때<br>
@@ -63,7 +63,7 @@ If안에 들어가는 표현식은 OGNL표현식이라는 것을 이용한다.<b
 
 <br><br>
 
-**<choose>**
+**<choose\>**
 
 if와 달리 choose는 여러 상황들 중 하나의 상황에서만 동작한다.<br>
 
@@ -90,7 +90,7 @@ if와 달리 choose는 여러 상황들 중 하나의 상황에서만 동작한�
 
 <br><br>
 
-**<trim>****<where>****<set>**
+**<trim\>****<where\>****<set\>**
 
 trim,where,set은 단독으로 사용되지 않고 <if\>, <choose\>와 같은 태그들을 내포하여 SQL들을 연결해 주고, 앞 뒤에 필요한 구문들(AND,OR,WHERE 등)을 추가하거나 생략하는 역할을 한다.<br>
 SQL을 작성하다 보면 상황에 따라서 WHERE나 AND,OR등이 문제가 되는 상황이 발생할 수도 있다.<br>
