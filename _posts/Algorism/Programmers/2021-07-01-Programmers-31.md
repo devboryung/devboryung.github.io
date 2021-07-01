@@ -1,5 +1,5 @@
 ---
-title: "[프로그래머스] 약수의 개수와 덧셈 (JAVA)"
+title: "[프로그래머스] 정수 제곱근 판별 (JAVA)"
 excerpt: "Algorism"
 search: true
 categories: 
@@ -54,6 +54,7 @@ class Solution {
         
         for(long i=1; i<=n; i++){
             
+
             if( i*i == n){
                 answer = (i+1)*(i+1);
                 break;
@@ -67,6 +68,12 @@ class Solution {
 }
 ```
 
+<br>
+
+
+반복문을 이용해서 1~n 사이의 수에서 i*i == n인 것을 찾는다.<br>
+찾고나면 break;를 통해서 반복문을 종료한다.<br>
+n이 121인 경우 121까지 반복문이 실행되는데, i가 11이 됐을 때 11*11 이 121이므로 11의 제곱으로 판단이 돼 반복문이 종료된다.<br>
 <br>
 
 
