@@ -1,6 +1,6 @@
 ---
-title: "[컴퓨터 개론] 프로그래밍 언어 살펴보기"
-excerpt: "코드잇"
+title: "[컴퓨터 개론] 프로그래밍 언어 이해하기"
+excerpt: "코드잇 - 프로그래밍 언어 살펴보기"
 categories: 
   - Learn
 tags: 
