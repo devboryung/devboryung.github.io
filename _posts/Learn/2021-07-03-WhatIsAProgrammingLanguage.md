@@ -45,4 +45,4 @@ toc: true
 
 
 
-[참고 영상] <https://www.codeit.kr/>
+[코드잇-컴퓨터 개론] <https://www.codeit.kr/courses/intro-to-computer>

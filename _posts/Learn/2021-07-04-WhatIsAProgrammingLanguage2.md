@@ -215,7 +215,8 @@ Static typing 언어 : C, C++, Java, 코틀린, 하스켈 등
 <br>
 <br>
 
-![image](https://user-images.githubusercontent.com/73421820/124593223-57d6f580-de99-11eb-81c2-17c32604f200.png)
+![image](https://user-images.githubusercontent.com/73421820/124752851-55d96900-df63-11eb-8c8e-931f92cbba95.png)
+
 
 <br>
 
@@ -226,4 +227,4 @@ Static typing 언어 : C, C++, Java, 코틀린, 하스켈 등
 
 
 
-[참고 영상] <https://www.codeit.kr/>
+[코드잇-컴퓨터 개론] <https://www.codeit.kr/courses/intro-to-computer>
