@@ -46,5 +46,28 @@ toc: true
 
 <br><br>
 
+## 표준의 필요성
+
+<br><br>
+
+## 크로스 플랫폼 (가상 머신)
+
+<br><br>
+
+## 크로스 플랫폼 (웹)
+
+<br><br>
+
+## 네이티브 애플리케이션과 웹 애플리케이션
+
+<br><br>
+
+## 웹을 활용하는 여러 가지 방법
+
+
+
+<br>
+<br><br>
+
 
 [코드잇-컴퓨터 개론]<https://www.codeit.kr/courses/intro-to-computer>
