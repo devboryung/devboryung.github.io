@@ -15,9 +15,11 @@ toc: true
 |:--:|:----|
 |Web|Apache-tomcat9|
 |OS|Windows 10|
-|JDK|1.8.0_202|
 |IDE|Nexacro17, eGovFrameDev3.10.0|
 |DB|mariadb-10.4.21|
+|JDK|1.8.0_202|
+
+
 
 <br>
 <br>
@@ -34,6 +36,7 @@ toc: true
 2. 다운로드 후 압축을 해제한다.<br>
 3. ecllipse 폴더에 있는 eclipse.exe를 실행시킨다.<br>(Workspace를 전자정부의 worspace폴더로 지정한다.)<br>
 4. Window > Preferences > Maven > User Settings 에서 Maven의 위치를 세팅해준다.<br>
+#### Maven은 필요한 라이브러리를 특정 문서(pom.xml)에 정의해 놓으면 내가 사용할 라이브러리 뿐만 아니라 해당 라이브러리가 작동하는데에 필요한 다른 라이브러리들까지 관리하여 네트워크를 통해서 자동으로 다운받아 준다.<br>
 ![Maven > User Settings](https://user-images.githubusercontent.com/73421820/131315372-7e222d63-4e75-4184-bffa-d1ffe5395afb.png)<br>
 #### Maven > User Settings<br><br>
 ![settings.xml](https://user-images.githubusercontent.com/73421820/131315464-0bfa97f8-59aa-4332-bd3c-d4a3f2b22d6b.png)<br>
