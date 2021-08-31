@@ -16,7 +16,7 @@ toc: true
 |Web|Apache-tomcat9|
 |OS|Windows 10|
 |JDK|1.8.0_202|
-|IDE|Eclipse|
+|IDE|Nexacro17, eGovFrameDev3.10.0|
 |DB|mariadb-10.4.21|
 
 <br>
